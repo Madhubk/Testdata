@@ -37,8 +37,6 @@
             // CurrencyMenuCtrl.ePage.Masters.ErrorWarningConfig.GlobalErrorWarningList = errorWarningService.Modules.Finance.Entity[CurrencyMenuCtrl.currentCurrency.code].GlobalErrorWarningList;
             // CurrencyMenuCtrl.ePage.Masters.ErrorWarningConfig.ErrorWarningObj = errorWarningService.Modules.Finance.Entity[CurrencyMenuCtrl.currentCurrency.code];
 
-            // Menu list from configuration
-
             InitActivateDeactivate();
         }
 
@@ -83,19 +81,21 @@
                     });
 
                     if (_count) {
-                        if (CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive == false && CurrencyMenuCtrl.ePage.Masters.isDeactivate == true) {
-                            Save($item);
+                        toastr.error("Code is Unique, Rename the Code!.");
+                    }
+                    else {
+                        if (CurrencyMenuCtrl.ePage.Entities.Header.Data.Code.length > 3) {
+                            toastr.error("Currency Code Max 3 Charters");
+                        }
+                        else if (CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive == false && CurrencyMenuCtrl.ePage.Masters.isDeactivate == true) {
                             toastr.success("Currency Deactivated Successfully");
+                            Save($item);
                         }
                         else if (CurrencyMenuCtrl.ePage.Entities.Header.Data.IsActive == true && CurrencyMenuCtrl.ePage.Masters.isActivate == true) {
                             Save($item);
+                        } else {
+                            Save($item);
                         }
-                        else {
-                            toastr.error("Code is Unique, Rename the Code!.");
-                        }
-
-                    } else {
-                        Save($item);
                     }
                 });
             } else {

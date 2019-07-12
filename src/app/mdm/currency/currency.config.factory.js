@@ -57,6 +57,7 @@
             "DataentryTitle": "Currency Master"
         };
         return exports;
+        
         function GetTabDetails(currentCurrency, isNew) {
             /*  Set configuration object to individual Finance invoice */
             var deferred = $q.defer();
@@ -86,6 +87,7 @@
                                 "CurrencyName": helperService.metaBase(),
                                 "Symbol": helperService.metaBase(),
                                 "Unitname": helperService.metaBase(),
+                                "CurrencySubUnit": helperService.metaBase(),
                                 "Country": helperService.metaBase()
                             }
                         },
@@ -162,11 +164,12 @@
         function GeneralValidation($item) {
             var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data;
-            //UICurrencyMaster Validations 
+            /* UICurrencyMaster Validations  */
             OnChangeValues(_input.Code, 'E1314', false, undefined, $item.code);
             OnChangeValues(_input.Desc, 'E1317', false, undefined, $item.code);
             OnChangeValues(_input.Symbol, 'E1315', false, undefined, $item.code);
             OnChangeValues(_input.UnitName, 'E1316', false, undefined, $item.code);
+            OnChangeValues(_input.SubUnitName, 'E1363', false, undefined, $item.code);
             OnChangeValues(_input.Country, 'E1208', false, undefined, $item.code);
         }
 

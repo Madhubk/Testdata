@@ -92,8 +92,7 @@
                     </error-warning-directive>
                 </span>
                 <div class=" ">
-                    <input type="text" class="form-control input-sm" placeholder="Unitname"
-                        data-ng-model=" CurrencyGeneralCtrl.ePage.Entities.Header.Data.UnitName"
+                    <input type="text" class="form-control input-sm" placeholder="Unitname" data-ng-model=" CurrencyGeneralCtrl.ePage.Entities.Header.Data.UnitName"
                         data-ng-change='CurrencyGeneralCtrl.ePage.Masters.OnChangeValidation(CurrencyGeneralCtrl.ePage.Entities.Header.Data.UnitName,"E1316",false,undefined)' data-ng-disabled="CurrencyGeneralCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll"/>
                 </div>
             </div>
@@ -103,19 +102,19 @@
                 <label class="ml-5 control-label">Sub Unit</label>
                 <span class="error-warning-container">
                     <error-warning-directive
-                        data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SubUnitname.IsWarning && !CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SubUnitname.IsError"
-                        list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SubUnitname.WARNING"
+                        data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencySubUnit.IsWarning && !CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencySubUnit.IsError"
+                        list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencySubUnit.WARNING"
                         type="'warning'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                     </error-warning-directive>
                     <error-warning-directive
-                        data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SubUnitname.IsError"
-                        list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.SubUnitname.ERROR"
+                        data-ng-if="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencySubUnit.IsError"
+                        list="CurrencyGeneralCtrl.ePage.Entities.Header.Meta.ErrorWarning.CurrencySubUnit.ERROR"
                         type="'error'" icon="fa fa-warning" parent-type="'null'" parent-ref="" g-parent-ref="">
                     </error-warning-directive>
                 </span>
                 <div class=" ">
                     <input type="text" class="form-control" placeholder="Sub Unitname" data-ng-model="CurrencyGeneralCtrl.ePage.Entities.Header.Data.SubUnitName"
-                        data-ng-disabled="CurrencyGeneralCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll"/>
+                        data-ng-change='CurrencyGeneralCtrl.ePage.Masters.OnChangeValidation(CurrencyGeneralCtrl.ePage.Entities.Header.Data.SubUnitName,"E1363",false,undefined)' data-ng-disabled="CurrencyGeneralCtrl.ePage.Entities.Header.GlobalVariables.IsDisabledAll"/>
                 </div>
             </div>
         </div>

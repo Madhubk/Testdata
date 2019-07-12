@@ -69,7 +69,10 @@
                     if (_count) {
                         toastr.error("Code / Country already avaliable in tax master!.");
                     } else {
-                        if (!TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRate.TaxHierarchy && TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails.length > 0) {
+                        if (TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRate.Code.length > 10) {
+                            toastr.error("Tax Code Max 10 Charters");
+                        }
+                        else if (!TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRate.TaxHierarchy && TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails.length > 0) {
                             TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails = [];
                             Save($item);
                         } else if (TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRate.TaxHierarchy && TaxMenuCtrl.ePage.Entities.Header.Data.UIAccTaxRateDetails.length == 0) {

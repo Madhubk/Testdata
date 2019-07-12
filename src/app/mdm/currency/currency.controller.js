@@ -54,7 +54,7 @@
 
         function AddTab(currencyNew, isNew) {
             var _isExist = CurrencyCtrl.ePage.Masters.TabList.some(function (value) {
-                return value.pk == currentTab.entity.PK;
+                return value.pk == currencyNew.entity.PK;
             });
 
             if (!_isExist) {
