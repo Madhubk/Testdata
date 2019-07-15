@@ -5,9 +5,9 @@
         .module("Application")
         .factory('branchConfig', BranchConfig);
 
-    BranchConfig.$inject = ["$location", "$q", "apiService","appConfig", "helperService", "$rootScope","authService","errorWarningService"];
+    BranchConfig.$inject = ["$q", "apiService", "appConfig", "helperService"];
 
-    function BranchConfig($location, $q, apiService,appConfig, helperService, $rootScope,authService,errorWarningService) {
+    function BranchConfig($q, apiService, appConfig, helperService) {
         var exports = {
             "Entities": {
                 "Header": {
@@ -37,23 +37,20 @@
                             "Url": "BranchCurrencyUpliftList/GetById/",
                             "FilterID": "BRNCURUPLI"
                         },
-                        "ValidateBrannch":{                            
+                        "ValidateBrannch": {
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "AccMastersValidate/FindAll",
-                            "FilterID": "ACCMSTVALID"                            
+                            "FilterID": "ACCMSTVALID"
                         }
-
                     },
                     "Meta": {
-
                     }
                 }
-
             },
             "TabList": [],
             "AddBranch": AddBranch,
-            "ValidationValues": "",            
+            "ValidationValues": "",
             "ValidationFindall": ValidationFindall,
             "GeneralValidation": GeneralValidation,
             "PushErrorWarning": PushErrorWarning,
@@ -71,7 +68,7 @@
                     "Header": {
                         "Data": {},
                         "RowIndex": -1,
-                        "Validations":"",
+                        "Validations": "",
                         "API": {
 
                             "InsertBranch": {
@@ -80,7 +77,7 @@
                                 "Url": "BranchCurrencyUpliftList/Insert",
                                 "FilterID": "BRNCURUPLI"
                             },
-                            "UpdateBranch":{
+                            "UpdateBranch": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
                                 "Url": "BranchCurrencyUpliftList/Update",
@@ -91,15 +88,14 @@
                             "Language": helperService.metaBase(),
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
-                                "Code":helperService.metaBase(),
-                                "City":helperService.metaBase(),
-                                "PostCode":helperService.metaBase(),
-                                "State":helperService.metaBase(),
-                                "HomePort":helperService.metaBase(),
-                                "Country":helperService.metaBase(),
-                                "GSTNo":helperService.metaBase(),
-                                "CMP_Code":helperService.metaBase()                           
-
+                                "Code": helperService.metaBase(),
+                                "City": helperService.metaBase(),
+                                "PostCode": helperService.metaBase(),
+                                "State": helperService.metaBase(),
+                                "HomePort": helperService.metaBase(),
+                                "Country": helperService.metaBase(),
+                                "GSTNo": helperService.metaBase(),
+                                "CMP_Code": helperService.metaBase()
                             }
                         },
                         "GlobalVariables": {
@@ -202,7 +198,6 @@
                                     "position": '8',
                                     "width": "150"
                                 }
-
                             }
                         }
                     }
@@ -210,7 +205,7 @@
             };
 
             if (isNew) {
-                _exports.Entities.Header.Data = currentBranch.data;                
+                _exports.Entities.Header.Data = currentBranch.data;
                 var obj = {
                     New: {
                         ePage: _exports
@@ -249,7 +244,7 @@
             var _input = {
                 "searchInput": helperService.createToArrayOfObject(_filter),
                 "FilterID": appConfig.Entities.Validation.API.FindAll.FilterID
-            };        
+            };
             apiService.post("eAxisAPI", appConfig.Entities.Validation.API.FindAll.Url, _input).then(function (response) {
                 if (response.data.Response) {
                     exports.ValidationValues = (response.data.Response);
@@ -260,15 +255,15 @@
         function GeneralValidation($item) {
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
-            // //UICurrencyMaster Validations 
+            /* UICurrencyMaster Validations  */
             OnChangeValues(_input.Code, 'E1339', false, undefined, $item.label);
             OnChangeValues(_input.City, 'E1340', false, undefined, $item.label);
             OnChangeValues(_input.State, 'E1341', false, undefined, $item.label);
             OnChangeValues(_input.PostCode, 'E1342', false, undefined, $item.label);
-            OnChangeValues(_input.Country,'E1343',false,undefined,$item.label);
-            OnChangeValues(_input.GSTNo,'E1344',false,undefined,$item.label);
-            OnChangeValues(_input.CMP_Code,'E1345',false,undefined,$item.label);
-            OnChangeValues(_input.HomePort,'E1346',false,undefined,$item.label);
+            OnChangeValues(_input.Country, 'E1343', false, undefined, $item.label);
+            OnChangeValues(_input.GSTNo, 'E1344', false, undefined, $item.label);
+            OnChangeValues(_input.CMP_Code, 'E1345', false, undefined, $item.label);
+            OnChangeValues(_input.HomePort, 'E1346', false, undefined, $item.label);
             // OnChangeValues(_input.ExpiryDate,'E1345',false,undefined,$item.code);
         }
 

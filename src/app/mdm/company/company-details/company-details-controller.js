@@ -1,17 +1,19 @@
-(function() {
+(function () {
     "use strict";
     angular
         .module("Application")
         .controller("CompanyDetailsController", CompanyDetailsController);
 
-    CompanyDetailsController.$inject = ["$rootScope", "$scope", "$state", "$q", "$location", "$timeout","$filter", "$uibModal","appConfig", "APP_CONSTANT", "authService", "apiService", "companyConfig", "helperService",  "toastr"];
+    CompanyDetailsController.$inject = ["$timeout", "$uibModal", "appConfig", "authService", "apiService", "companyConfig", "helperService", "toastr"];
 
-    function CompanyDetailsController($rootScope, $scope, $state, $q, $location, $timeout,$filter, $uibModal,appConfig, APP_CONSTANT, authService, apiService, companyConfig, helperService,  toastr) {
-        /* jshint validthis: true */
+    function CompanyDetailsController($timeout, $uibModal, appConfig, authService, apiService, companyConfig, helperService, toastr) {
+
         var CompanyDetailsCtrl = this;
 
         function Init() {
+
             var currentCompany = CompanyDetailsCtrl.currentCompany[CompanyDetailsCtrl.currentCompany.label].ePage.Entities;
+
             CompanyDetailsCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Department_Details",
@@ -20,16 +22,15 @@
                 "Entities": currentCompany
             };
 
-            CompanyDetailsCtrl.ePage.Masters.OpenBasicsModel = OpenBasicsModel;
-            CompanyDetailsCtrl.ePage.Masters.AddNewRow=AddNewRow;
-            CompanyDetailsCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
-            CompanyDetailsCtrl.ePage.Masters.RemoveRow = RemoveRow;        
-            CompanyDetailsCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
+            CompanyDetailsCtrl.ePage.Masters.AddNewRow = AddNewRow;
+            CompanyDetailsCtrl.ePage.Masters.RemoveRow = RemoveRow;
             CompanyDetailsCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
+            CompanyDetailsCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
+            CompanyDetailsCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
             CompanyDetailsCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
-            CompanyDetailsCtrl.ePage.Masters.GSTOnChange=GSTOnChange;
+            CompanyDetailsCtrl.ePage.Masters.GSTOnChange = GSTOnChange;
 
-            CompanyDetailsCtrl.ePage.Masters.TaxRegNoIsDisabled= true;
+            CompanyDetailsCtrl.ePage.Masters.TaxRegNoIsDisabled = true;
 
             CompanyDetailsCtrl.ePage.Masters.DropDownMasterList = {
                 "ExRateType": {
@@ -38,21 +39,22 @@
                 "ExRateSubType": {
                     "ListSource": []
                 },
-                "JobType":{
+                "JobType": {
                     "ListSource": []
                 },
-                "BussType":{
+                "BussType": {
                     "ListSource": []
                 },
-                "ModeofTransport":{
+                "ModeofTransport": {
                     "ListSource": []
                 }
             };
             GetMastersDropDownList();
         }
 
+        //#region GetMastersDropDownList 
         function GetMastersDropDownList() {
-            var typeCodeList = ["EXRATETYPE", "EXSUBRATE","MODEOFTRANSPORT","JOBTYPE","BUSSTYPE"];
+            var typeCodeList = ["EXRATETYPE", "EXSUBRATE", "MODEOFTRANSPORT", "JOBTYPE", "BUSSTYPE"];
             var dynamicFindAllInput = [];
 
             typeCodeList.map(function (value, key) {
@@ -74,7 +76,9 @@
                 }
             });
         }
-        
+        //#endregion
+
+        //#region AddNewRow, RemoveRow
         function AddNewRow() {
             var obj = {
                 "JobType": "",
@@ -82,10 +86,10 @@
                 "ModeOfTransport": "",
                 "Currency": "",
                 "CfxPercentage": "",
-                "CfxMin": "",  
-                "CompanyFK":CompanyDetailsCtrl.ePage.Entities.Header.Data.UICmpCompany.PK,
+                "CfxMin": "",
+                "CompanyFK": CompanyDetailsCtrl.ePage.Entities.Header.Data.UICmpCompany.PK,
                 "CreatedBy": authService.getUserInfo().UserId,
-                "ModifiedBy": "",                
+                "ModifiedBy": "",
                 "IsModified": false,
                 "IsDeleted": false,
                 "LineNo": CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.length + 1
@@ -94,7 +98,6 @@
             CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.push(obj);
             CompanyDetailsCtrl.ePage.Masters.selectedRow = CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.length - 1;
 
-            /* Add Scroll */
             $timeout(function () {
                 var objDiv = document.getElementById("CompanyDetailsCtrl.ePage.Masters.AddScroll");
                 objDiv.scrollTop = objDiv.scrollHeight;
@@ -116,7 +119,7 @@
                     }
                 });
 
-                
+
                 CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.map(function (value, key) {
                     if (value.SingleSelect && value.PK && value.IsDeleted) {
                         apiService.get("eAxisAPI", companyConfig.Entities.API.JobHeaderList.API.Delete.Url + value.PK).then(function (response) {
@@ -140,7 +143,9 @@
                 console.log("Cancelled");
             });
         }
+        //#endregion
 
+        //#region setSelectedRow, SingleSelectCheckBox, SelectAllCheckBox    
         function setSelectedRow($index) {
             CompanyDetailsCtrl.ePage.Masters.selectedRow = $index;
         }
@@ -186,65 +191,25 @@
                 }
             });
         }
+        //#endregion
 
-
-        function OpenBasicsModel() {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                backdrop: "static",
-                keyboard: false,
-                windowClass: "basics-edit right",
-                scope: $scope,
-                templateUrl: "app/mdm/company/company-details/company-edit-details/company-details-modal.html",
-                controller: 'CompanyEditModalController as CompEditModalCtrl',
-                bindToController: true,
-                resolve: {
-                    param: function() {
-                        var exports = {
-                            "CurrentCompany": CompanyDetailsCtrl.ePage.Entities.Header.Data
-                        };
-                        return exports;
-                    }
-                }
-            }).result.then(
-                function(response) {
-                    if(response.Data != undefined){
-                    var _isEmpty = angular.equals(response.Data, {});
-                    if (!_isEmpty) {
-
-                        // if (response.CurrComments.Comments.Description === "Detailed Goods Description") {
-                        CompanyDetailsCtrl.ePage.Entities.Header.Data = response.Data;
-                        toastr.success("Record Added Successfully...!")
-
-                    } else {
-                        toastr.warnig("Value Should not be Empty...!");
-                    }
-                }
-                else
-                {
-                 CompanyDetailsCtrl.ePage.Entities.Header.Data = response;   
-                }
-                },
-                function() {
-                    console.log("Cancelled");
-                }
-            );
-        }
-
-        function SelectedLookupData($index, $item,type){
-            if($item){
-
+        //#region SelectedLookupData 
+        function SelectedLookupData($index, $item, type) {
+            if ($item) {
             }
         }
-        
-        function GSTOnChange($item){
-            if($item){
+        //#endregion
+
+        //#region GSTOnChange 
+        function GSTOnChange($item) {
+            if ($item) {
                 CompanyDetailsCtrl.ePage.Masters.TaxRegNoIsDisabled = false;
             }
-            else{
+            else {
                 CompanyDetailsCtrl.ePage.Masters.TaxRegNoIsDisabled = true;
             }
         }
+        //#endregion
 
         Init();
     }

@@ -5,8 +5,9 @@
         .module("Application")
         .factory('companyConfig', companyConfig);
 
-    companyConfig.$inject = ["$location", "$q", "apiService", "appConfig", "helperService", "$rootScope", "authService", "errorWarningService"];
-    function companyConfig($location, $q, apiService, appConfig, helperService, $rootScope, authService, errorWarningService) {
+    companyConfig.$inject = ["$q", "apiService", "appConfig", "helperService"];
+
+    function companyConfig($q, apiService, appConfig, helperService) {
 
         var exports = {
             "Entities": {
@@ -19,7 +20,7 @@
                             "Url": "DataEntry/Dynamic/FindConfig",
                             "FilterID": "DYNDAT"
                         },
-                        "FindAll":{
+                        "FindAll": {
                             "IsAPI": "true",
                             "HttpType": "Post",
                             "Url": "CmpCompany/FindAll",
@@ -37,19 +38,16 @@
                             "Url": "CurrencyUpliftList/GetById/",
                             "FilterID": "CURCFXCOMLI"
                         },
-                        "ValidateCompany":{                            
+                        "ValidateCompany": {
                             "IsAPI": "true",
                             "HttpType": "POST",
                             "Url": "AccMastersValidate/FindAll",
-                            "FilterID": "ACCMSTVALID"                            
-                        }                      
-
+                            "FilterID": "ACCMSTVALID"
+                        }
                     },
                     "Meta": {
-
                     }
                 }
-
             },
             "TabList": [],
             "AddCompany": AddCompany,
@@ -78,11 +76,11 @@
                                 "Url": "CurrencyUpliftList/Update",
                                 "FilterID": "CURCFXCOMLI"
                             },
-                            "InsertCompany":{
+                            "InsertCompany": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
                                 "Url": "CurrencyUpliftList/Insert",
-                                "FilterID": "CURCFXCOMLI"                               
+                                "FilterID": "CURCFXCOMLI"
                             }
                         },
                         "Meta": {
@@ -207,7 +205,6 @@
                                     "position": '8',
                                     "width": "150"
                                 }
-
                             }
                         }
                     }
@@ -227,9 +224,8 @@
                     exports.TabList.push(obj);
                     deferred.resolve(exports.TabList);
                 }
-                
-            } else {
 
+            } else {
                 // Get Consolidation details and set to configuration list
                 apiService.get("eAxisAPI", exports.Entities.Header.API.GetByID.Url + currentCompany.entity.PK).then(function (response) {
                     _exports.Entities.Header.Data = response.data.Response;
@@ -249,6 +245,7 @@
             }
             return deferred.promise;
         }
+
         function ValidationFindall() {
             var _filter = {
                 "ModuleCode": "Finance",
@@ -268,7 +265,7 @@
         function GeneralValidation($item) {
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data;
-            // //UICurrencyMaster Validations 
+            /* UICurrencyMaster Validations */ 
             OnChangeValues(_input.UICmpCompany.Code, 'E1330', false, undefined, $item.label);
             OnChangeValues(_input.UICmpCompany.Name, 'E1331', false, undefined, $item.label);
             OnChangeValues(_input.UICmpCompany.Email, 'E1332', false, undefined, $item.label);

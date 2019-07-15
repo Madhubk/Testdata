@@ -4,9 +4,9 @@
         .module("Application")
         .controller("BranchMenuController", BranchMenuController);
 
-    BranchMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "authService", "apiService", "toastr", "branchConfig", "helperService", "errorWarningService"];
+    BranchMenuController.$inject = ["authService", "apiService", "toastr", "branchConfig", "helperService"];
 
-    function BranchMenuController($scope, $timeout, APP_CONSTANT, authService, apiService, toastr, branchConfig, helperService, errorWarningService) {
+    function BranchMenuController(authService, apiService, toastr, branchConfig, helperService) {
         var BranchMenuCtrl = this;
         function Init() {
             var currentBranch = BranchMenuCtrl.currentBranch[BranchMenuCtrl.currentBranch.label].ePage.Entities;
@@ -47,6 +47,7 @@
         }
         //#endregion
 
+        //#region Validation
         function Validation($item) {
             var _Data = $item[$item.label].ePage.Entities,
                 _input = _Data.Header.Data,
@@ -86,6 +87,9 @@
                 BranchMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(BranchMenuCtrl.currentBranch);
             }
         }
+        //#endregion
+
+        //#region Save
         function Save($item) {
             BranchMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             BranchMenuCtrl.ePage.Masters.DisableSave = true;
@@ -120,6 +124,9 @@
                 }
             });
         }
+        //#endregion 
+
+        //#region filterObjectUpdate
         function filterObjectUpdate(obj, key) {
             for (var i in obj) {
                 if (!obj.hasOwnProperty(i)) continue;
@@ -131,17 +138,14 @@
             }
             return obj;
         }
+        //#endregion
+
+        //#region Activate, Deactivate
         function Activate() {
             BranchMenuCtrl.ePage.Masters.isActivate = true;
             BranchMenuCtrl.ePage.Masters.isDeactivate = false;
             BranchMenuCtrl.ePage.Entities.Header.Data.IsActive = true;
         }
-
-        // function Deactivate() {
-        //     BranchMenuCtrl.ePage.Masters.DisableDeactivate = true;
-        //     BranchMenuCtrl.ePage.Masters.DisableActivate = false;
-        //     BranchMenuCtrl.ePage.Entities.Header.Data.IsValid = false;
-        // }
 
         function Deactivate($item) {
             var _Data = $item[$item.label].ePage.Entities,
@@ -188,6 +192,8 @@
                 });
             }
         }
+        //#endregion
+
         Init();
     }
 })();

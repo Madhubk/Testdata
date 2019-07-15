@@ -1,4 +1,4 @@
-(function() {
+(function () {
     "use strict";
     angular
         .module("Application")
@@ -19,6 +19,6 @@
         };
         return exports;
 
-        function Link(scope, elem, attr) {}
+        function Link(scope, elem, attr) { }
     }
 })();

@@ -4,9 +4,9 @@
         .module("Application")
         .controller("CompanyMenuController", CompanyMenuController);
 
-    CompanyMenuController.$inject = ["$scope", "$timeout", "APP_CONSTANT", "authService", "apiService", "toastr", "companyConfig", "helperService", "errorWarningService"];
+    CompanyMenuController.$inject = ["authService", "apiService", "toastr", "companyConfig", "helperService"];
 
-    function CompanyMenuController($scope, $timeout, APP_CONSTANT, authService, apiService, toastr, companyConfig, helperService, errorWarningService) {
+    function CompanyMenuController(authService, apiService, toastr, companyConfig, helperService) {
         var CompanyMenuCtrl = this;
 
         function Init() {

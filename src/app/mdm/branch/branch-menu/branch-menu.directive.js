@@ -1,9 +1,11 @@
-(function() {
+(function () {
     "use strict";
     angular
         .module("Application")
         .directive("branchMenu", branchMenu);
+
     branchMenu.$inject = [];
+
     function branchMenu() {
         var exports = {
             restrict: "EA",
@@ -21,6 +23,6 @@
         };
         return exports;
 
-        function Link(scope, elem, attr) {}
+        function Link(scope, elem, attr) { }
     }
 })();

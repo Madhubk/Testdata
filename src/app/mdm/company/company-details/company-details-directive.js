@@ -1,4 +1,4 @@
-(function() {
+(function () {
     "use strict";
 
     angular
@@ -20,6 +20,6 @@
         };
         return exports;
 
-        function Link(scope, elem, attr) {}
+        function Link(scope, elem, attr) { }
     }
 })();

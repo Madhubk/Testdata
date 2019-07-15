@@ -5,9 +5,9 @@
         .module("Application")
         .controller("BranchController", BranchController);
 
-    BranchController.$inject = ["$location", "APP_CONSTANT", "authService", "apiService", "helperService", "$timeout", "branchConfig", "toastr"];
+    BranchController.$inject = ["$timeout", "helperService", "branchConfig", "toastr"];
 
-    function BranchController($location, APP_CONSTANT, authService, apiService, helperService, $timeout, branchConfig, toastr) {
+    function BranchController($timeout, helperService, branchConfig, toastr) {
         var BranchCtrl = this;
 
         function Init() {
@@ -18,17 +18,13 @@
                 "Meta": helperService.metaBase(),
                 "Entities": branchConfig.Entities
             };
-            BranchCtrl.ePage.Masters.UserProfile = {
-                "userName": authService.getUserInfo().UserName,
-                "userId": authService.getUserInfo().UserId
-            };
-            // For list directive
+
             BranchCtrl.ePage.Masters.IsDisableSave = false;
             BranchCtrl.ePage.Masters.dataEntryName = "CmpBranch";
             BranchCtrl.ePage.Masters.Title = "Branch";
-            BranchCtrl.ePage.Masters.SaveButtonText = "Save";
-            BranchCtrl.ePage.Masters.Save = Save;
             BranchCtrl.ePage.Masters.TabList = [];
+
+            /* Function */
             BranchCtrl.ePage.Masters.AddTab = AddTab;
             BranchCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
             BranchCtrl.ePage.Masters.RemoveTab = RemoveTab;
@@ -63,7 +59,7 @@
                 }
                 branchConfig.AddBranch(currentBranch, isNew).then(function (response) {
                     var _entity = {};
-                    BranchCtrl.ePage.Masters.TabList = response;                    
+                    BranchCtrl.ePage.Masters.TabList = response;
                     $timeout(function () {
                         BranchCtrl.ePage.Masters.activeTabIndex = BranchCtrl.ePage.Masters.TabList.length;
                         BranchCtrl.ePage.Masters.CurrentActiveTab(currentBranch.entity.PK);
@@ -112,31 +108,6 @@
             }
         }
 
-        function Save(currentBranch) {
-            BranchCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
-            BranchCtrl.ePage.Masters.IsDisableSave = true;
-            var _BranchData = currentBranch[currentBranch.label].ePage.Entities;
-            var _input = _BranchData.Header.Data,
-                _api;
-            if (currentBranch.isNew) {
-                _input = filterObject(_input, "PK");
-                _input.PK = _input.PK;
-                _api = "CmpBranch/Insert";
-            } else {
-                _input.IsModified = true;
-                _api = "CmpBranch/Update";
-
-            }
-            apiService.post("eAxisAPI", _api, _input).then(function (response) {
-                BranchCtrl.ePage.Masters.SaveButtonText = "Save";
-                BranchCtrl.ePage.Masters.IsDisableSave = false;
-            }, function (response) {
-                console.log("Error : " + response);
-                BranchCtrl.ePage.Masters.SaveButtonText = "Save";
-                BranchCtrl.ePage.Masters.IsDisableSave = false;
-
-            });
-        }
         function CurrentActiveTab(currentTab) {
             if (currentTab.label != undefined) {
                 currentTab = currentTab.label.entity
@@ -145,6 +116,7 @@
             }
             BranchCtrl.ePage.Masters.currentBranch = currentTab;
         }
+
         function GetValidationList(currentTab, entity) {
             var _obj = {
                 ModuleName: ["Finance"],

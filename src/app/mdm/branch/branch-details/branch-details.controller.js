@@ -5,14 +5,16 @@
         .module("Application")
         .controller("BranchDetailsController", BranchDetailsController);
 
-    BranchDetailsController.$inject = ["$scope", "$timeout", "authService", "apiService", "branchConfig", "helperService", "$uibModal", "toastr"];
+    BranchDetailsController.$inject = ["$timeout", "appConfig", "apiService", "authService", "helperService"];
 
-    function BranchDetailsController($scope, $timeout, authService, apiService, branchConfig, helperService, $uibModal, toastr) {
-        /* jshint validthis: true */
+    function BranchDetailsController($timeout, appConfig, apiService, authService, helperService) {
+
         var BranchDetailsCtrl = this;
 
         function Init() {
+
             var currentBranch = BranchDetailsCtrl.currentBranch[BranchDetailsCtrl.currentBranch.label].ePage.Entities;
+
             BranchDetailsCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Branch_Details",
@@ -20,22 +22,65 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentBranch
             };
-            BranchDetailsCtrl.ePage.Masters.OpenBranchModel = OpenBranchModel;
+
             BranchDetailsCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
             BranchDetailsCtrl.ePage.Masters.AddNewRow = AddNewRow;
-            BranchDetailsCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
             BranchDetailsCtrl.ePage.Masters.RemoveRow = RemoveRow;
-            BranchDetailsCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
             BranchDetailsCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
-            BranchDetailsCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
+            BranchDetailsCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
+            BranchDetailsCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
+
+            BranchDetailsCtrl.ePage.Masters.DropDownMasterList = {
+                "JobType": {
+                    "ListSource": []
+                },
+                "BussType": {
+                    "ListSource": []
+                },
+                "ModeofTransport": {
+                    "ListSource": []
+                }
+            };
+            GetMastersDropDownList();
         };
 
+        //#region GetMastersDropDownList
+        function GetMastersDropDownList() {
+            var typeCodeList = ["JOBTYPE", "BUSSTYPE", "MODEOFTRANSPORT"];
+            var dynamicFindAllInput = [];
+
+            typeCodeList.map(function (value, key) {
+                dynamicFindAllInput[key] = {
+                    "FieldName": "TypeCode",
+                    "value": value
+                }
+            });
+
+            var _input = {
+                "searchInput": dynamicFindAllInput,
+                "FilterID": appConfig.Entities.CfxTypes.API.DynamicFindAll.FilterID
+            };
+
+            apiService.post("eAxisAPI", appConfig.Entities.CfxTypes.API.DynamicFindAll.Url + authService.getUserInfo().AppPK, _input).then(function (response) {
+                if (response.data.Response) {
+                    typeCodeList.map(function (value, key) {
+                        BranchDetailsCtrl.ePage.Masters.DropDownMasterList[value] = helperService.metaBase();
+                        BranchDetailsCtrl.ePage.Masters.DropDownMasterList[value].ListSource = response.data.Response[value];
+                    });
+                }
+            });
+        }
+        //#endregion
+
+        //#region SelectedLookupData 
         function SelectedLookupData($index, $item, type) {
             if (type == "Organization") {
                 BranchDetailsCtrl.ePage.Entities.Header.Data.Code = "";
             }
         }
+        //#endregion
 
+        //#region AddNewRow, RemoveRow
         function AddNewRow() {
             var obj = {
                 "JobType": "",
@@ -77,7 +122,6 @@
                     }
                 });
 
-
                 BranchDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.map(function (value, key) {
                     // if (value.SingleSelect && value.PK && value.IsDeleted) {
                     //     apiService.get("eAxisAPI", branchConfig.Entities.API.JobHeaderList.API.Delete.Url + value.PK).then(function (response) {
@@ -101,7 +145,9 @@
                 console.log("Cancelled");
             });
         }
+        //#endregion
 
+        //#region setSelectedRow, SingleSelectCheckBox, SelectAllCheckBox
         function setSelectedRow($index) {
             BranchDetailsCtrl.ePage.Masters.selectedRow = $index;
         }
@@ -147,47 +193,8 @@
                 }
             });
         }
+        //#endregion   
 
-
-        function OpenBranchModel() {
-            var modalInstance = $uibModal.open({
-                animation: true,
-                backdrop: "static",
-                keyboard: true,
-                windowClass: "basics-edit right",
-                scope: $scope,
-                templateUrl: "app/mdm/branch/branch-details/branch-edit-details/branch-details-modal.html",
-                controller: 'BranchModalController as BranchModalCtrl',
-                bindToController: true,
-                resolve: {
-                    param: function () {
-                        var exports = {
-                            "currentBranch": BranchDetailsCtrl.ePage.Entities
-                        };
-                        return exports;
-                    }
-                }
-            }).result.then(
-                function (response) {
-                    if (response.Data != undefined) {
-                        var _isEmpty = angular.equals(response.Data, {});
-                        if (!_isEmpty) {
-                            BranchDetailsCtrl.ePage.Entities.Header.Data = response.Data;
-                            toastr.success("Record Added Successfully...!")
-
-                        } else {
-                            toastr.warnig("Value Should not be Empty...!");
-                        }
-                    }
-                    else {
-                        BranchDetailsCtrl.ePage.Entities.Header.Data = response;
-                    }
-                },
-                function () {
-                    console.log("Cancelled");
-                }
-            );
-        };
         Init();
     }
 })();
