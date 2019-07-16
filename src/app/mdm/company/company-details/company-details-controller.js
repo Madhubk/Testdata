@@ -4,15 +4,13 @@
         .module("Application")
         .controller("CompanyDetailsController", CompanyDetailsController);
 
-    CompanyDetailsController.$inject = ["$timeout", "$uibModal", "appConfig", "authService", "apiService", "companyConfig", "helperService", "toastr"];
+    CompanyDetailsController.$inject = ["$timeout", "appConfig", "authService", "apiService", "companyConfig", "helperService", "confirmation"];
 
-    function CompanyDetailsController($timeout, $uibModal, appConfig, authService, apiService, companyConfig, helperService, toastr) {
-
+    function CompanyDetailsController($timeout, appConfig, authService, apiService, companyConfig, helperService, confirmation) {
         var CompanyDetailsCtrl = this;
 
         function Init() {
-
-            var currentCompany = CompanyDetailsCtrl.currentCompany[CompanyDetailsCtrl.currentCompany.label].ePage.Entities;
+            var currentCompany = CompanyDetailsCtrl.currentCompany[CompanyDetailsCtrl.currentCompany.code].ePage.Entities;
 
             CompanyDetailsCtrl.ePage = {
                 "Title": "",
@@ -22,6 +20,10 @@
                 "Entities": currentCompany
             };
 
+            CompanyDetailsCtrl.ePage.Masters.TaxRegNoIsDisabled = true;
+            CompanyDetailsCtrl.ePage.Masters.Config = companyConfig;
+
+            /* Function */
             CompanyDetailsCtrl.ePage.Masters.AddNewRow = AddNewRow;
             CompanyDetailsCtrl.ePage.Masters.RemoveRow = RemoveRow;
             CompanyDetailsCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
@@ -29,8 +31,7 @@
             CompanyDetailsCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
             CompanyDetailsCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
             CompanyDetailsCtrl.ePage.Masters.GSTOnChange = GSTOnChange;
-
-            CompanyDetailsCtrl.ePage.Masters.TaxRegNoIsDisabled = true;
+            CompanyDetailsCtrl.ePage.Masters.OnChangeValidations = OnChangeValidations;
 
             CompanyDetailsCtrl.ePage.Masters.DropDownMasterList = {
                 "ExRateType": {
@@ -81,15 +82,14 @@
         //#region AddNewRow, RemoveRow
         function AddNewRow() {
             var obj = {
+                "PK":"",
                 "JobType": "",
                 "BusinessType": "",
                 "ModeOfTransport": "",
                 "Currency": "",
                 "CfxPercentage": "",
                 "CfxMin": "",
-                "CompanyFK": CompanyDetailsCtrl.ePage.Entities.Header.Data.UICmpCompany.PK,
-                "CreatedBy": authService.getUserInfo().UserId,
-                "ModifiedBy": "",
+                "CompanyFK": "",
                 "IsModified": false,
                 "IsDeleted": false,
                 "LineNo": CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.length + 1
@@ -119,10 +119,9 @@
                     }
                 });
 
-
                 CompanyDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.map(function (value, key) {
                     if (value.SingleSelect && value.PK && value.IsDeleted) {
-                        apiService.get("eAxisAPI", companyConfig.Entities.API.JobHeaderList.API.Delete.Url + value.PK).then(function (response) {
+                        apiService.get("eAxisAPI", companyConfig.Entities.API.Company.API.Delete.Url + value.PK).then(function (response) {
                             console.log("Success");
                         });
                     }
@@ -196,6 +195,15 @@
         //#region SelectedLookupData 
         function SelectedLookupData($index, $item, type) {
             if ($item) {
+                if(type=='Country'){
+                    OnChangeValidations($item.Code, 'E1335');
+                }
+                else if(type=='DefaultCurrency'){
+                    OnChangeValidations($item.Code, 'E1336');
+                }
+                else if(type=='ReportingCurrency'){
+                    OnChangeValidations($item.Code, 'E1338');
+                }
             }
         }
         //#endregion
@@ -210,6 +218,24 @@
             }
         }
         //#endregion
+
+        //#region ErrorWarning Alert Validation
+        function OnChangeValidations(fieldvalue, code, IsArray, RowIndex) {
+            angular.forEach(CompanyDetailsCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
+                if (value.Code.trim() === code) {
+                    GetErrorMessage(fieldvalue, value, IsArray, RowIndex)
+                }
+            });
+        }
+
+        function GetErrorMessage(fieldvalue, value, IsArray, RowIndex) {
+            if (!fieldvalue) {
+                CompanyDetailsCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, CompanyDetailsCtrl.currentCompany.code, IsArray, RowIndex, value.ColIndex, value.DisplayName, undefined, undefined);
+            } else {
+                CompanyDetailsCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey, CompanyDetailsCtrl.currentCompany.code, IsArray, RowIndex, value.ColIndex);
+            }
+        }
+        //#endregion 
 
         Init();
     }

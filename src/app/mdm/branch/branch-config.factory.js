@@ -11,66 +11,68 @@
         var exports = {
             "Entities": {
                 "Header": {
-                    "RowIndex": -1,
-                    "API": {
-                        "FindConfig": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "DataEntry/Dynamic/FindConfig",
-                            "FilterID": "DYNDAT"
-                        },
-                        "DataEntry": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "DataEntryMaster/FindAll",
-                            "FilterID": "DYNDAT"
-                        },
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "Post",
-                            "Url": "CmpBranch/FindAll",
-                            "FilterID": "CMPBRAN"
-                        },
-                        "GetByID": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "BranchCurrencyUpliftList/GetById/",
-                            "FilterID": "BRNCURUPLI"
-                        },
-                        "ValidateBrannch": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "AccMastersValidate/FindAll",
-                            "FilterID": "ACCMSTVALID"
+                    "Data": {},
+                    "Meta": {}
+                },
+                "API": {
+                    "Branch": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "Post",
+                                "Url": "CmpBranch/FindAll",
+                                "FilterID": "CMPBRAN"
+                            },
+                            "GetById": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "BranchCurrencyUpliftList/GetById/",
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "Get",
+                                "Url": "CMPCurrencyUplift/Delete/"
+                            },
+                            "BranchActivityClose":{
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "CmpBranch/CmpBranchActivityClose/"
+                            },
+                            "ValidateBranch": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "AccMastersValidate/FindAll",
+                                "FilterID": "ACCMSTVALID"
+                            }
                         }
-                    },
-                    "Meta": {
                     }
                 }
             },
             "TabList": [],
-            "AddBranch": AddBranch,
             "ValidationValues": "",
+            "GetTabDetails": GetTabDetails,
             "ValidationFindall": ValidationFindall,
             "GeneralValidation": GeneralValidation,
             "PushErrorWarning": PushErrorWarning,
             "ShowErrorWarningModal": ShowErrorWarningModal,
             "RemoveErrorWarning": RemoveErrorWarning,
-            "RemoveApiErrors": RemoveApiErrors
+            "RemoveApiErrors": RemoveApiErrors,
+            "DataentryName": "CmpBranch",
+            "DataentryTitle": "Branch"
         };
         return exports;
 
-        function AddBranch(currentBranch, isNew) {
+        function GetTabDetails(currentBranch, isNew) {
             // Set configuration object to individual Consolidation
             var deferred = $q.defer();
             var _exports = {
                 "Entities": {
                     "Header": {
                         "Data": {},
-                        "RowIndex": -1,
                         "Validations": "",
+                        "RowIndex": -1,
                         "API": {
-
                             "InsertBranch": {
                                 "IsAPI": "true",
                                 "HttpType": "POST",
@@ -100,7 +102,6 @@
                         },
                         "GlobalVariables": {
                             "SelectAll": false,
-                            "IsDisablePost": true
                         },
                         "TableProperties": {
                             "UICurrencyUplift": {
@@ -206,29 +207,41 @@
 
             if (isNew) {
                 _exports.Entities.Header.Data = currentBranch.data;
-                var obj = {
-                    New: {
+                var _code = currentBranch.entity.PK.split("-").join("");
+
+                var _obj = {
+                    [_code]: {
                         ePage: _exports
                     },
-                    label: "New",
-                    code: currentBranch.entity.Code,
+                    label: 'New',
+                    code: _code,
+                    pk: currentBranch.entity.PK,
                     isNew: isNew
                 };
-                exports.TabList.push(obj);
+                exports.TabList.push(_obj);
                 deferred.resolve(exports.TabList);
             } else {
-                // Get Consolidation details and set to configuration list
-                apiService.get("eAxisAPI", exports.Entities.Header.API.GetByID.Url + currentBranch.entity.PK).then(function (response) {
+                helperService.getFullObjectUsingGetById(exports.Entities.API.Branch.API.GetById.Url, currentBranch.PK).then(function (response) {
+                    if (response.data.Messages) {
+                        response.data.Messages.map(function (value, key) {
+                            if (value.Type === "Warning" && value.MessageDesc !== "") {
+                                toastr.info(value.MessageDesc);
+                            }
+                        });
+                    }
                     _exports.Entities.Header.Data = response.data.Response;
+                    _exports.Entities.Header.Validations = response.data.Validations;
+
+                    var _code = currentBranch.PK.split("-").join("");
                     var obj = {
-                        [currentBranch.entity.Code]: {
+                        [_code]: {
                             ePage: _exports
                         },
-                        label: currentBranch.entity.Code,
-                        code: currentBranch.entity.Code,
+                        label: currentBranch.Code,
+                        code: _code,
+                        pk: currentBranch.PK,
                         isNew: isNew
                     };
-
                     exports.TabList.push(obj);
                     deferred.resolve(exports.TabList);
                 });
@@ -253,18 +266,19 @@
         }
 
         function GeneralValidation($item) {
-            var _Data = $item[$item.label].ePage.Entities,
+            var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data;
+
             /* UICurrencyMaster Validations  */
-            OnChangeValues(_input.Code, 'E1339', false, undefined, $item.label);
-            OnChangeValues(_input.City, 'E1340', false, undefined, $item.label);
-            OnChangeValues(_input.State, 'E1341', false, undefined, $item.label);
-            OnChangeValues(_input.PostCode, 'E1342', false, undefined, $item.label);
-            OnChangeValues(_input.Country, 'E1343', false, undefined, $item.label);
-            OnChangeValues(_input.GSTNo, 'E1344', false, undefined, $item.label);
-            OnChangeValues(_input.CMP_Code, 'E1345', false, undefined, $item.label);
-            OnChangeValues(_input.HomePort, 'E1346', false, undefined, $item.label);
-            // OnChangeValues(_input.ExpiryDate,'E1345',false,undefined,$item.code);
+            OnChangeValues(_input.UICmpBranch.Code, 'E1339', false, undefined, $item.code);
+            OnChangeValues(_input.UICmpBranch.City, 'E1340', false, undefined, $item.code);
+            OnChangeValues(_input.UICmpBranch.State, 'E1341', false, undefined, $item.code);
+            OnChangeValues(_input.UICmpBranch.PostCode, 'E1342', false, undefined, $item.code);
+            OnChangeValues(_input.UICmpBranch.Country, 'E1343', false, undefined, $item.code);
+            OnChangeValues(_input.UICmpBranch.GSTNo, 'E1344', false, undefined, $item.code);
+            OnChangeValues(_input.UICmpBranch.CMP_Code, 'E1345', false, undefined, $item.code);
+            OnChangeValues(_input.UICmpBranch.HomePort, 'E1346', false, undefined, $item.code);
+            /* OnChangeValues(_input.ExpiryDate,'E1345',false,undefined,$item.code); */
         }
 
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {
@@ -311,7 +325,7 @@
                 }
 
                 var _index = exports.TabList.map(function (value, key) {
-                    return value.label;
+                    return value.code;
                 }).indexOf(EntityObject);
 
                 if (_index !== -1) {
@@ -330,6 +344,7 @@
                     if (!_isExistGlobal) {
                         exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.push(_obj);
                     }
+
                     exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsArray = IsArray;
                     exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ParentRef = ParentRef;
                     exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].GParentRef = GParentRef;
@@ -386,13 +401,13 @@
         }
 
         function ShowErrorWarningModal(EntityObject) {
-            $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
+            $("#errorWarningContainer" + EntityObject.code).toggleClass("open");
         }
 
         function RemoveErrorWarning(Code, MessageType, MetaObject, EntityObject, IsArray, RowIndex, ColIndex) {
             if (Code) {
                 var _index = exports.TabList.map(function (value, key) {
-                    return value.label;
+                    return value.code;
                 }).indexOf(EntityObject);
 
                 if (_index !== -1) {

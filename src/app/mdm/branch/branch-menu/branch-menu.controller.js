@@ -8,8 +8,10 @@
 
     function BranchMenuController(authService, apiService, toastr, branchConfig, helperService) {
         var BranchMenuCtrl = this;
+
         function Init() {
-            var currentBranch = BranchMenuCtrl.currentBranch[BranchMenuCtrl.currentBranch.label].ePage.Entities;
+            var currentBranch = BranchMenuCtrl.currentBranch[BranchMenuCtrl.currentBranch.code].ePage.Entities;
+
             BranchMenuCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Branch_Menu",
@@ -17,19 +19,19 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentBranch
             };
-            BranchMenuCtrl.ePage.Masters.DepartmentMenu = {};
+
             BranchMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+            BranchMenuCtrl.ePage.Masters.DisableSave = false;
             BranchMenuCtrl.ePage.Masters.DeactivateButtonText = "Deactivate";
             BranchMenuCtrl.ePage.Masters.ActivateButtonText = "Activate";
+            BranchMenuCtrl.ePage.Masters.isActivate = true;
+            BranchMenuCtrl.ePage.Masters.isDeactivate = true;
             BranchMenuCtrl.ePage.Masters.Config = branchConfig;
 
-
+            /* Function */
             BranchMenuCtrl.ePage.Masters.Activate = Activate;
             BranchMenuCtrl.ePage.Masters.Deactivate = Deactivate;
             BranchMenuCtrl.ePage.Masters.Validation = Validation;
-
-            BranchMenuCtrl.ePage.Masters.isActivate = true;
-            BranchMenuCtrl.ePage.Masters.isDeactivate = true;
 
             InitActivateDeactivate();
         }
@@ -49,9 +51,10 @@
 
         //#region Validation
         function Validation($item) {
-            var _Data = $item[$item.label].ePage.Entities,
+            var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data,
                 _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
+
             BranchMenuCtrl.ePage.Masters.Config.GeneralValidation($item);
             if (BranchMenuCtrl.ePage.Entities.Header.Validations) {
                 BranchMenuCtrl.ePage.Masters.Config.RemoveApiErrors(BranchMenuCtrl.ePage.Entities.Header.Validations, $item.label);
@@ -61,15 +64,15 @@
                 var _filter = {};
                 var _inputField = {
                     "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": branchConfig.Entities.Header.API.FindAll.FilterID
+                    "FilterID": branchConfig.Entities.API.Branch.API.FindAll.FilterID
                 };
 
-                apiService.post("eAxisAPI", branchConfig.Entities.Header.API.FindAll.Url, _inputField).then(function (response) {
+                apiService.post("eAxisAPI", branchConfig.Entities.API.Branch.API.FindAll.Url, _inputField).then(function (response) {
                     if (response.data.Response) {
-                        BranchMenuCtrl.ePage.Masters.Data = response.data.Response;
+                        BranchMenuCtrl.ePage.Masters.UIBranch = response.data.Response;
                     }
-                    var _count = BranchMenuCtrl.ePage.Masters.Data.some(function (value, key) {
-                        if (value.Code == _input.Code) {
+                    var _count = BranchMenuCtrl.ePage.Masters.UIBranch.some(function (value, key) {
+                        if (value.Code == _input.UICmpBranch.Code) {
                             return true;
                         }
                         else {
@@ -77,7 +80,7 @@
                         }
                     });
 
-                    if (_count) {
+                    if ($item.isNew && _count) {
                         toastr.error("Code is Unique, Rename the Code!.");
                     } else {
                         Save($item);
@@ -94,23 +97,27 @@
             BranchMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             BranchMenuCtrl.ePage.Masters.DisableSave = true;
 
-            var _Data = $item[$item.label].ePage.Entities,
+            var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data;
 
             if ($item.isNew) {
-                _input.CreatedDateTime = new Date();
-                _input.IsValid = true;
-                _input.ModifiedBy = authService.getUserInfo().UserId;
-                _input.CreatedBy = authService.getUserInfo().UserId;
-                _input.Source = "ERP";
-                _input.TenantCode = "20CUB";
-                _input.IsActive = true;
-                _input.Fax = "21221";
-                _input.InternalExtension = "34124";
+                _input.UICmpBranch.PK = _input.PK;
+                _input.UICmpBranch.CreatedBy = authService.getUserInfo().UserId;
+                _input.UICmpBranch.CreatedDateTime = new Date();
+                _input.UICmpBranch.ModifiedBy = authService.getUserInfo().UserId;
+                _input.UICmpBranch.Source = "ERP";
+                _input.UICmpBranch.TenantCode = "20CUB";
+                _input.UICmpBranch.IsActive = true;
+                _input.UICmpBranch.IsValid = true;
+                _input.UICmpBranch.Fax = "";
+                _input.UICmpBranch.InternalExtension = "";
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
-                _input.ModifiedDateTime = new Date();
-                _input.IsModified = true;
+                if ($item[$item.code].ePage.Entities.Header.Data.UICurrencyUplift.length > 0) {
+                    $item[$item.code].ePage.Entities.Header.Data.UICurrencyUplift.map(function (value, key) {
+                        (value.PK) ? value.IsModified = true : value.IsModified = false;
+                    });
+                }
             }
 
             helperService.SaveEntity($item, 'Branch').then(function (response) {
@@ -118,6 +125,21 @@
                 BranchMenuCtrl.ePage.Masters.DisableSave = false;
 
                 if (response.Status === "success") {
+                    var _index = branchConfig.TabList.map(function (value, key) {
+                        return value[value.code].ePage.Entities.Header.Data.PK;
+                    }).indexOf(BranchMenuCtrl.currentBranch[BranchMenuCtrl.currentBranch.code].ePage.Entities.Header.Data.PK);
+
+                    branchConfig.TabList.map(function (value, key) {
+                        if (_index == key) {
+                            if (value.isNew) {
+                                value.label = BranchMenuCtrl.ePage.Entities.Header.Data.UICmpBranch.Code;
+                                value[BranchMenuCtrl.ePage.Entities.Header.Data.UICmpBranch.Code] = value.isNew;
+                                delete value.isNew;
+                            }
+                        }
+                    });
+
+                    helperService.refreshGrid();
                     toastr.success("Saved Successfully...!");
                 } else if (response.Status === "failed") {
                     toastr.error("Could not Save...!");
@@ -148,7 +170,7 @@
         }
 
         function Deactivate($item) {
-            var _Data = $item[$item.label].ePage.Entities,
+            var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data;
 
             if ($item.isNew) {
@@ -160,13 +182,13 @@
                 };
                 var _input = {
                     "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": branchConfig.Entities.Header.API.ValidateBrannch.FilterID
+                    "FilterID": branchConfig.Entities.API.Branch.API.ValidateBrannch.FilterID
                 };
-                apiService.post("eAxisAPI", branchConfig.Entities.Header.API.ValidateBrannch.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", branchConfig.Entities.API.Branch.API.ValidateBranch.Url, _input).then(function (response) {
                     if (response.data.Response.length > 0) {
-                        BranchMenuCtrl.ePage.Masters.Data = response.data.Response;
+                        BranchMenuCtrl.ePage.Masters.UIBranchList = response.data.Response;
 
-                        var _isDeactivate = BranchMenuCtrl.ePage.Masters.Data.some(function (value, key) {
+                        var _isDeactivate = BranchMenuCtrl.ePage.Masters.UIBranchList.some(function (value, key) {
                             if (value.IsActive != "true") {
                                 return true;
                             }

@@ -5,15 +5,14 @@
         .module("Application")
         .controller("BranchDetailsController", BranchDetailsController);
 
-    BranchDetailsController.$inject = ["$timeout", "appConfig", "apiService", "authService", "helperService"];
+    BranchDetailsController.$inject = ["$timeout", "appConfig", "branchConfig", "apiService", "authService", "helperService", "confirmation"];
 
-    function BranchDetailsController($timeout, appConfig, apiService, authService, helperService) {
+    function BranchDetailsController($timeout, appConfig, branchConfig, apiService, authService, helperService, confirmation) {
 
         var BranchDetailsCtrl = this;
 
         function Init() {
-
-            var currentBranch = BranchDetailsCtrl.currentBranch[BranchDetailsCtrl.currentBranch.label].ePage.Entities;
+            var currentBranch = BranchDetailsCtrl.currentBranch[BranchDetailsCtrl.currentBranch.code].ePage.Entities;
 
             BranchDetailsCtrl.ePage = {
                 "Title": "",
@@ -23,12 +22,16 @@
                 "Entities": currentBranch
             };
 
+            BranchDetailsCtrl.ePage.Masters.Config = branchConfig;
+
+            /* Function */
             BranchDetailsCtrl.ePage.Masters.SelectedLookupData = SelectedLookupData;
             BranchDetailsCtrl.ePage.Masters.AddNewRow = AddNewRow;
             BranchDetailsCtrl.ePage.Masters.RemoveRow = RemoveRow;
             BranchDetailsCtrl.ePage.Masters.setSelectedRow = setSelectedRow;
             BranchDetailsCtrl.ePage.Masters.SingleSelectCheckBox = SingleSelectCheckBox;
             BranchDetailsCtrl.ePage.Masters.SelectAllCheckBox = SelectAllCheckBox;
+            BranchDetailsCtrl.ePage.Masters.OnChangeValidations = OnChangeValidations;
 
             BranchDetailsCtrl.ePage.Masters.DropDownMasterList = {
                 "JobType": {
@@ -74,8 +77,16 @@
 
         //#region SelectedLookupData 
         function SelectedLookupData($index, $item, type) {
-            if (type == "Organization") {
-                BranchDetailsCtrl.ePage.Entities.Header.Data.Code = "";
+            if ($item) {
+                if (type == 'Country') {
+                    OnChangeValidations($item.Code, 'E1343');
+                } else if (type == 'State') {
+                    OnChangeValidations($item.Code, 'E1341');
+                } else if (type == 'Company') {
+                    OnChangeValidations($item.Code, 'E1345');
+                } else if (type == 'HomePort') {
+                    OnChangeValidations($item.Code, 'E1346');
+                }
             }
         }
         //#endregion
@@ -83,15 +94,14 @@
         //#region AddNewRow, RemoveRow
         function AddNewRow() {
             var obj = {
+                "PK":"",
                 "JobType": "",
                 "BusinessType": "",
                 "ModeOfTransport": "",
                 "Currency": "",
                 "CfxPercentage": "",
                 "CfxMin": "",
-                "CompanyFK": BranchDetailsCtrl.ePage.Entities.Header.Data.UICmpBranch.PK,
-                "CreatedBy": authService.getUserInfo().UserId,
-                "ModifiedBy": "",
+                "BRANCHFK": "",
                 "IsModified": false,
                 "IsDeleted": false,
                 "LineNo": BranchDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.length + 1
@@ -123,11 +133,11 @@
                 });
 
                 BranchDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.map(function (value, key) {
-                    // if (value.SingleSelect && value.PK && value.IsDeleted) {
-                    //     apiService.get("eAxisAPI", branchConfig.Entities.API.JobHeaderList.API.Delete.Url + value.PK).then(function (response) {
-                    //         console.log("Success");
-                    //     });
-                    // }
+                    if (value.SingleSelect && value.PK && value.IsDeleted) {
+                        apiService.get("eAxisAPI", branchConfig.Entities.API.Branch.API.Delete.Url + value.PK).then(function (response) {
+                            console.log("Success");
+                        });
+                    }
                 });
 
                 for (var i = BranchDetailsCtrl.ePage.Entities.Header.Data.UICurrencyUplift.length - 1; i >= 0; i--) {
@@ -194,6 +204,24 @@
             });
         }
         //#endregion   
+
+        //#region ErrorWarning Alert Validation
+        function OnChangeValidations(fieldvalue, code, IsArray, RowIndex) {
+            angular.forEach(BranchDetailsCtrl.ePage.Masters.Config.ValidationValues, function (value, key) {
+                if (value.Code.trim() === code) {
+                    GetErrorMessage(fieldvalue, value, IsArray, RowIndex)
+                }
+            });
+        }
+
+        function GetErrorMessage(fieldvalue, value, IsArray, RowIndex) {
+            if (!fieldvalue) {
+                BranchDetailsCtrl.ePage.Masters.Config.PushErrorWarning(value.Code, value.Message, "E", false, value.CtrlKey, BranchDetailsCtrl.currentBranch.code, IsArray, RowIndex, value.ColIndex, value.DisplayName, undefined, undefined);
+            } else {
+                BranchDetailsCtrl.ePage.Masters.Config.RemoveErrorWarning(value.Code, "E", value.CtrlKey, BranchDetailsCtrl.currentBranch.code, IsArray, RowIndex, value.ColIndex);
+            }
+        }
+        //#endregion 
 
         Init();
     }

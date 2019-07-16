@@ -91,7 +91,6 @@
                         },
                         "GlobalVariables": {
                             "SelectAll": false,
-                            "IsDisablePost": true
                         },
                         "TableProperties": {
                             "UIAccTaxRateDetails": {
@@ -118,7 +117,7 @@
                                     "isenabled": true,
                                     "position": '4',
                                     "width": "160"
-                                },
+                                }
                             }
                         }
                     }

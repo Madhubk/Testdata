@@ -12,102 +12,99 @@
         var exports = {
             "Entities": {
                 "Header": {
-                    "RowIndex": -1,
-                    "API": {
-                        "FindConfig": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "DataEntry/Dynamic/FindConfig",
-                            "FilterID": "DYNDAT"
-                        },
-                        "FindAll": {
-                            "IsAPI": "true",
-                            "HttpType": "Post",
-                            "Url": "CmpCompany/FindAll",
-                            "FilterID": "CMPCOMP"
-                        },
-                        "DataEntry": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "DataEntryMaster/FindAll",
-                            "FilterID": "DYNDAT"
-                        },
-                        "GetByID": {
-                            "IsAPI": "true",
-                            "HttpType": "GET",
-                            "Url": "CurrencyUpliftList/GetById/",
-                            "FilterID": "CURCFXCOMLI"
-                        },
-                        "ValidateCompany": {
-                            "IsAPI": "true",
-                            "HttpType": "POST",
-                            "Url": "AccMastersValidate/FindAll",
-                            "FilterID": "ACCMSTVALID"
+                    "Data": {},
+                    "Meta": {}
+                },
+                "API": {
+                    "Company": {
+                        "RowIndex": -1,
+                        "API": {
+                            "FindAll": {
+                                "IsAPI": "true",
+                                "HttpType": "Post",
+                                "Url": "CmpCompany/FindAll",
+                                "FilterID": "CMPCOMP"
+                            },
+                            "GetById": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "CurrencyUpliftList/GetById/",
+                                "FilterID": "CURCFXCOMLI"
+                            },
+                            "Delete": {
+                                "IsAPI": "true",
+                                "HttpType": "Get",
+                                "Url": "CMPCurrencyUplift/Delete/"
+                            },
+                            "CompanyActivityClose": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "CmpCompany/CmpCompanyActivityClose/"
+                            },
+                            "ValidateCompany": {
+                                "IsAPI": "true",
+                                "HttpType": "POST",
+                                "Url": "AccMastersValidate/FindAll",
+                                "FilterID": "ACCMSTVALID"
+                            },
                         }
-                    },
-                    "Meta": {
                     }
                 }
             },
             "TabList": [],
-            "AddCompany": AddCompany,
             "ValidationValues": "",
+            "GetTabDetails": GetTabDetails,
             "ValidationFindall": ValidationFindall,
             "GeneralValidation": GeneralValidation,
             "PushErrorWarning": PushErrorWarning,
             "ShowErrorWarningModal": ShowErrorWarningModal,
             "RemoveErrorWarning": RemoveErrorWarning,
-            "RemoveApiErrors": RemoveApiErrors
+            "RemoveApiErrors": RemoveApiErrors,
+            "DataentryName": "CmpCompany",
+            "DataentryTitle": "Company"
         };
         return exports;
 
-        function AddCompany(currentCompany, isNew) {
+        function GetTabDetails(currentCompany, isNew) {
             // Set configuration object to individual Consolidation
             var deferred = $q.defer();
             var _exports = {
                 "Entities": {
                     "Header": {
                         "Data": {},
+                        "Validations": "",
                         "RowIndex": -1,
                         "API": {
-                            "UpdateCompany": {
-                                "IsAPI": "true",
-                                "HttpType": "GET",
-                                "Url": "CurrencyUpliftList/Update",
-                                "FilterID": "CURCFXCOMLI"
-                            },
                             "InsertCompany": {
                                 "IsAPI": "true",
                                 "HttpType": "GET",
                                 "Url": "CurrencyUpliftList/Insert",
                                 "FilterID": "CURCFXCOMLI"
+                            },
+                            "UpdateCompany": {
+                                "IsAPI": "true",
+                                "HttpType": "GET",
+                                "Url": "CurrencyUpliftList/Update",
+                                "FilterID": "CURCFXCOMLI"
                             }
                         },
                         "Meta": {
-                            "MenuList": [{
-                                "DisplayName": "Basic Details",
-                                "Value": "Basics",
-                            }, {
-                                "DisplayName": "Address",
-                                "Value": "Address"
-                            }],
                             "Language": helperService.metaBase(),
                             "ErrorWarning": {
                                 "GlobalErrorWarningList": [],
                                 "Code": helperService.metaBase(),
                                 "Name": helperService.metaBase(),
-                                "PostCode": helperService.metaBase(),
-                                "LocalCurrency": helperService.metaBase(),
-                                "Email": helperService.metaBase(),
                                 "BusinessRegNo": helperService.metaBase(),
+                                "Address1": helperService.metaBase(),
                                 "CountryCode": helperService.metaBase(),
+                                "PostCode": helperService.metaBase(),
+                                "Email": helperService.metaBase(),
+                                "LocalCurrency": helperService.metaBase(),
                                 "ReportingCurrency": helperService.metaBase(),
-                                "Address1": helperService.metaBase()
                             }
                         },
                         "GlobalVariables": {
                             "SelectAll": false,
-                            "IsDisablePost": true
                         },
                         "TableProperties": {
                             "UICurrencyUplift": {
@@ -212,32 +209,41 @@
             };
             if (isNew) {
                 _exports.Entities.Header.Data = currentCompany.data;
-                if (currentCompany.entity.UICmpCompany.Code == null) {
-                    var obj = {
-                        New: {
-                            ePage: _exports
-                        },
-                        label: 'New',
-                        code: "",
-                        isNew: isNew
-                    };
-                    exports.TabList.push(obj);
-                    deferred.resolve(exports.TabList);
-                }
+                var _code = currentCompany.entity.PK.split("-").join("");
+
+                var _obj = {
+                    [_code]: {
+                        ePage: _exports
+                    },
+                    label: 'New',
+                    code: _code,
+                    pk: currentCompany.entity.PK,
+                    isNew: isNew
+                };
+                exports.TabList.push(_obj);
+                deferred.resolve(exports.TabList);
 
             } else {
-                // Get Consolidation details and set to configuration list
-                apiService.get("eAxisAPI", exports.Entities.Header.API.GetByID.Url + currentCompany.entity.PK).then(function (response) {
+                helperService.getFullObjectUsingGetById(exports.Entities.API.Company.API.GetById.Url, currentCompany.PK).then(function (response) {
+                    if (response.data.Messages) {
+                        response.data.Messages.map(function (value, key) {
+                            if (value.Type === "Warning" && value.MessageDesc !== "") {
+                                toastr.info(value.MessageDesc);
+                            }
+                        });
+                    }
                     _exports.Entities.Header.Data = response.data.Response;
+                    _exports.Entities.Header.Validations = response.data.Validations;
 
+                    var _code = currentCompany.PK.split("-").join("");
                     var obj = {
-                        [currentCompany.entity.Code]: {
+                        [_code]: {
                             ePage: _exports
                         },
-                        label: currentCompany.entity.Code,
-                        code: currentCompany.entity.Code,
+                        label: currentCompany.Code,
+                        code: _code,
+                        pk: currentCompany.PK,
                         isNew: isNew
-
                     };
                     exports.TabList.push(obj);
                     deferred.resolve(exports.TabList);
@@ -263,18 +269,19 @@
         }
 
         function GeneralValidation($item) {
-            var _Data = $item[$item.label].ePage.Entities,
+            var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data;
-            /* UICurrencyMaster Validations */ 
-            OnChangeValues(_input.UICmpCompany.Code, 'E1330', false, undefined, $item.label);
-            OnChangeValues(_input.UICmpCompany.Name, 'E1331', false, undefined, $item.label);
-            OnChangeValues(_input.UICmpCompany.Email, 'E1332', false, undefined, $item.label);
-            OnChangeValues(_input.UICmpCompany.BusinessRegNo, 'E1333', false, undefined, $item.label);
-            OnChangeValues(_input.UICmpCompany.PostCode, 'E1334', false, undefined, $item.label);
-            OnChangeValues(_input.UICmpCompany.CountryCode, 'E1335', false, undefined, $item.label);
-            OnChangeValues(_input.UICmpCompany.LocalCurrency, 'E1336', false, undefined, $item.label);
+
+            /* UICurrencyMaster Validations */
+            OnChangeValues(_input.UICmpCompany.Code, 'E1330', false, undefined, $item.code);
+            OnChangeValues(_input.UICmpCompany.Name, 'E1331', false, undefined, $item.code);
+            OnChangeValues(_input.UICmpCompany.BusinessRegNo, 'E1333', false, undefined, $item.code);
             OnChangeValues(_input.UICmpCompany.Address1, 'E1337', false, undefined, $item.code);
-            OnChangeValues(_input.UICmpCompany.ReportingCurrency, 'E1338', false, undefined, $item.label);
+            OnChangeValues(_input.UICmpCompany.CountryCode, 'E1335', false, undefined, $item.code);
+            OnChangeValues(_input.UICmpCompany.PostCode, 'E1334', false, undefined, $item.code);
+            OnChangeValues(_input.UICmpCompany.Email, 'E1332', false, undefined, $item.code);
+            OnChangeValues(_input.UICmpCompany.LocalCurrency, 'E1336', false, undefined, $item.code);
+            OnChangeValues(_input.UICmpCompany.ReportingCurrency, 'E1338', false, undefined, $item.code);
         }
 
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {
@@ -321,7 +328,7 @@
                 }
 
                 var _index = exports.TabList.map(function (value, key) {
-                    return value.label;
+                    return value.code;
                 }).indexOf(EntityObject);
 
                 if (_index !== -1) {
@@ -340,6 +347,7 @@
                     if (!_isExistGlobal) {
                         exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.push(_obj);
                     }
+
                     exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].IsArray = IsArray;
                     exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].ParentRef = ParentRef;
                     exports.TabList[_index][EntityObject].ePage.Entities.Header.Meta.ErrorWarning[MetaObject].GParentRef = GParentRef;
@@ -396,13 +404,13 @@
         }
 
         function ShowErrorWarningModal(EntityObject) {
-            $("#errorWarningContainer" + EntityObject.label).toggleClass("open");
+            $("#errorWarningContainer" + EntityObject.code).toggleClass("open");
         }
 
         function RemoveErrorWarning(Code, MessageType, MetaObject, EntityObject, IsArray, RowIndex, ColIndex) {
             if (Code) {
                 var _index = exports.TabList.map(function (value, key) {
-                    return value.label;
+                    return value.code;
                 }).indexOf(EntityObject);
 
                 if (_index !== -1) {

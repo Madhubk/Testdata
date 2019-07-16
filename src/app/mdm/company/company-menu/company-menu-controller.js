@@ -10,7 +10,8 @@
         var CompanyMenuCtrl = this;
 
         function Init() {
-            var currentCompany = CompanyMenuCtrl.currentCompany[CompanyMenuCtrl.currentCompany.label].ePage.Entities;
+            var currentCompany = CompanyMenuCtrl.currentCompany[CompanyMenuCtrl.currentCompany.code].ePage.Entities;
+
             CompanyMenuCtrl.ePage = {
                 "Title": "",
                 "Prefix": "CompanyMenu",
@@ -18,20 +19,19 @@
                 "Meta": helperService.metaBase(),
                 "Entities": currentCompany
             };
-            CompanyMenuCtrl.ePage.Masters.CompanyMenu = {};
-            CompanyMenuCtrl.ePage.Masters.Config = companyConfig;
+
             CompanyMenuCtrl.ePage.Masters.SaveButtonText = "Save";
+            CompanyMenuCtrl.ePage.Masters.DisableSave = false;
             CompanyMenuCtrl.ePage.Masters.ActivateButtonText = "Activate";
             CompanyMenuCtrl.ePage.Masters.DeactivateButtonText = "Deactivate";
-
             CompanyMenuCtrl.ePage.Masters.isDeactivate = true;
             CompanyMenuCtrl.ePage.Masters.isActivate = true;
+            CompanyMenuCtrl.ePage.Masters.Config = companyConfig;
+
+            /* Function */
             CompanyMenuCtrl.ePage.Masters.Activate = Activate;
             CompanyMenuCtrl.ePage.Masters.Deactivate = Deactivate;
             CompanyMenuCtrl.ePage.Masters.Validation = Validation;
-
-            // Menu list from configuration
-            // OrganizationMenuCtrl.ePage.Masters.OrganizationMenu.ListSource = OrganizationMenuCtrl.ePage.Entities.Header.Meta.MenuList;
 
             InitActivateDeactivate();
         }
@@ -49,10 +49,12 @@
         }
         //#endregion
 
+        //#region Validation
         function Validation($item) {
-            var _Data = $item[$item.label].ePage.Entities,
+            var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data,
                 _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
+
             CompanyMenuCtrl.ePage.Masters.Config.GeneralValidation($item);
             if (CompanyMenuCtrl.ePage.Entities.Header.Validations) {
                 CompanyMenuCtrl.ePage.Masters.Config.RemoveApiErrors(CompanyMenuCtrl.ePage.Entities.Header.Validations, $item.label);
@@ -62,59 +64,54 @@
                 var _filter = {};
                 var _inputField = {
                     "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": companyConfig.Entities.Header.API.FindAll.FilterID
+                    "FilterID": companyConfig.Entities.API.Company.API.FindAll.FilterID
                 };
 
-                // apiService.post("eAxisAPI", companyConfig.Entities.Header.API.FindAll.Url, _inputField).then(function (response) {
-                //     if (response.data.Response) {
-                //         CompanyMenuCtrl.ePage.Masters.Data = response.data.Response;
-                //     }
-                //     var _count = CompanyMenuCtrl.ePage.Masters.Data.some(function (value, key) {
-                //         if (value.Code == _input.Code) {
-                //             return true;
-                //         }
-                //         else {
-                //             return false;
-                //         }
-                //     });
+                apiService.post("eAxisAPI", companyConfig.Entities.API.Company.API.FindAll.Url, _inputField).then(function (response) {
+                    if (response.data.Response) {
+                        CompanyMenuCtrl.ePage.Masters.UICompany = response.data.Response;
+                    }
+                    var _count = CompanyMenuCtrl.ePage.Masters.UICompany.some(function (value, key) {
+                        if (value.Code == _input.UICmpCompany.Code) {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    });
 
-                //     if (_count) {
-                //         toastr.error("Code is Unique, Rename the Code!.");
-                //     } else {
-                //         Save($item);
-                //     }
-                // });
-                Save($item);
+                    if ($item.isNew && _count) {
+                        toastr.error("Code is Unique, Rename the Code!.");
+                    } else {
+                        Save($item);
+                    }
+                });
             } else {
                 CompanyMenuCtrl.ePage.Masters.Config.ShowErrorWarningModal(CompanyMenuCtrl.currentCompany);
             }
         }
+        //#endregion
+
+        //#region Save
         function Save($item) {
             CompanyMenuCtrl.ePage.Masters.SaveButtonText = "Please Wait...";
             CompanyMenuCtrl.ePage.Masters.DisableSave = true;
 
-            var _Data = $item[$item.label].ePage.Entities,
+            var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data;
 
             if ($item.isNew) {
-                _input.UICmpCompany.CreatedDateTime = new Date();
-                _input.UICmpCompany.IsValid = true;
-                _input.UICmpCompany.ModifiedBy = authService.getUserInfo().UserId;
+                _input.UICmpCompany.PK = _input.PK;
                 _input.UICmpCompany.CreatedBy = authService.getUserInfo().UserId;
+                _input.UICmpCompany.CreatedDateTime = new Date();
                 _input.UICmpCompany.Source = "ERP";
                 _input.UICmpCompany.TenantCode = "20CUB";
                 _input.UICmpCompany.IsActive = true;
-                _input.UICmpCompany.PK = _Data.Header.Data.PK;
-                _input.UICmpCompany.CompanyFK = ""
-                // _input.UICurrencyUplift.CreatedBy=authService.getUserInfo().UserId;
-                // _input.UICurrencyUplift.CreatedDate=new Date();
-                // _input.UICurrencyUplift.ModifiedBy="";
-                // _input.UICurrencyUplift.ModifiedDate="";
-                // _input.UICurrencyUplift.IsModified=false;
+                _input.UICmpCompany.IsValid = true;
             } else {
                 $item = filterObjectUpdate($item, "IsModified");
-                if ($item[$item.label].ePage.Entities.Header.Data.UICurrencyUplift.length > 0) {
-                    $item[$item.label].ePage.Entities.Header.Data.UICurrencyUplift.map(function (value, key) {
+                if ($item[$item.code].ePage.Entities.Header.Data.UICurrencyUplift.length > 0) {
+                    $item[$item.code].ePage.Entities.Header.Data.UICurrencyUplift.map(function (value, key) {
                         (value.PK) ? value.IsModified = true : value.IsModified = false;
                     });
                 }
@@ -125,12 +122,28 @@
                 CompanyMenuCtrl.ePage.Masters.DisableSave = false;
 
                 if (response.Status === "success") {
+                    var _index = companyConfig.TabList.map(function (value, key) {
+                        return value[value.code].ePage.Entities.Header.Data.PK;
+                    }).indexOf(CompanyMenuCtrl.currentCompany[CompanyMenuCtrl.currentCompany.code].ePage.Entities.Header.Data.PK);
+
+                    companyConfig.TabList.map(function (value, key) {
+                        if (_index == key) {
+                            if (value.isNew) {
+                                value.label = CompanyMenuCtrl.ePage.Entities.Header.Data.UICmpCompany.Code;
+                                value[CompanyMenuCtrl.ePage.Entities.Header.Data.UICmpCompany.Code] = value.isNew;
+                                delete value.isNew;
+                            }
+                        }
+                    });
+
+                    helperService.refreshGrid();
                     toastr.success("Saved Successfully...!");
                 } else if (response.Status === "failed") {
                     toastr.error("Could not Save...!");
                 }
             });
         }
+
         function filterObjectUpdate(obj, key) {
             for (var i in obj) {
                 if (!obj.hasOwnProperty(i)) continue;
@@ -142,25 +155,21 @@
             }
             return obj;
         }
+        //#endregion
+
+        //#region Activate, Deactivate
         function Activate() {
             CompanyMenuCtrl.ePage.Masters.isActivate = true;
             CompanyMenuCtrl.ePage.Masters.isDeactivate = false;
             CompanyMenuCtrl.ePage.Entities.Header.Data.UICmpCompany.IsActive = true;
         }
 
-        // function Deactivate(){
-        //     CompanyMenuCtrl.ePage.Masters.DisableDeactivate=true;
-        //     CompanyMenuCtrl.ePage.Masters.DisableActivate=false;
-        //     CompanyDetailsCtrl.ePage.Entities.Header.Data.UICmpCompany.IsActive=false;
-        //     CompanyDetailsCtrl.ePage.Entities.Header.Data.UICmpCompany.IsValid=false;
-        // }
-
         function Deactivate($item) {
-            var _Data = $item[$item.label].ePage.Entities,
+            var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data;
 
             if ($item.isNew) {
-                toastr.error("New Branch should not be deactivate.");
+                toastr.error("New Company should not be deactivate.");
             }
             else {
                 var _filter = {
@@ -168,13 +177,13 @@
                 };
                 var _input = {
                     "searchInput": helperService.createToArrayOfObject(_filter),
-                    "FilterID": companyConfig.Entities.Header.API.ValidateCompany.FilterID
+                    "FilterID": companyConfig.Entities.API.Company.API.ValidateCompany.FilterID
                 };
-                apiService.post("eAxisAPI", companyConfig.Entities.Header.API.ValidateCompany.Url, _input).then(function (response) {
+                apiService.post("eAxisAPI", companyConfig.Entities.API.Company.API.ValidateCompany.Url, _input).then(function (response) {
                     if (response.data.Response.length > 0) {
-                        CompanyMenuCtrl.ePage.Masters.Data = response.data.Response;
+                        CompanyMenuCtrl.ePage.Masters.UICompanyList = response.data.Response;
 
-                        var _isDeactivate = CompanyMenuCtrl.ePage.Masters.Data.some(function (value, key) {
+                        var _isDeactivate = CompanyMenuCtrl.ePage.Masters.UICompanyList.some(function (value, key) {
                             if (value.IsActive != "true") {
                                 return true;
                             }
@@ -184,7 +193,7 @@
                         });
 
                         if (_isDeactivate) {
-                            toastr.error("Can't Deactivate the Branch untill all the open transaction get closed");
+                            toastr.error("Can't Deactivate the Company untill all the open transaction get closed");
                         }
                         else {
                             CompanyMenuCtrl.ePage.Masters.isDeactivate = true;
@@ -200,6 +209,8 @@
                 });
             }
         }
+        //#endregion
+
         Init();
     }
 })();

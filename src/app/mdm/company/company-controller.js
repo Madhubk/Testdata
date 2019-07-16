@@ -1,13 +1,13 @@
-(function() {
+(function () {
     "use strict";
 
     angular
         .module("Application")
         .controller("CompanyController", CompanyController);
 
-    CompanyController.$inject = ["helperService", "$timeout", "companyConfig", "toastr"];
+    CompanyController.$inject = ["$timeout", "helperService", "apiService", "companyConfig", "toastr", "errorWarningService"];
 
-    function CompanyController(helperService, $timeout, companyConfig, toastr) {
+    function CompanyController($timeout, helperService, apiService, companyConfig, toastr, errorWarningService) {
         var CompanyCtrl = this;
 
         function Init() {
@@ -19,66 +19,95 @@
                 "Entities": companyConfig.Entities
             };
 
-            CompanyCtrl.ePage.Masters.IsDisableSave = false;
-            CompanyCtrl.ePage.Masters.dataEntryName = "CmpCompany";
-            CompanyCtrl.ePage.Masters.Title ="Company";
+            CompanyCtrl.ePage.Masters.dataEntryName = companyConfig.DataentryName;
+            CompanyCtrl.ePage.Masters.Title = companyConfig.DataentryTitle;
+
+            /* Tab */
             CompanyCtrl.ePage.Masters.TabList = [];
+            CompanyCtrl.ePage.Masters.ActiveTabIndex = 0;
+            CompanyCtrl.ePage.Masters.IsTabClick = false;
+            CompanyCtrl.ePage.Masters.isNewClicked = false;
 
             /* Function */
-            CompanyCtrl.ePage.Masters.AddTab = AddTab;
-            CompanyCtrl.ePage.Masters.CurrentActiveTab = CurrentActiveTab;
-            CompanyCtrl.ePage.Masters.RemoveTab = RemoveTab;
             CompanyCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
-            CompanyCtrl.ePage.Masters.CreateNewCompany=CreateNewCompany;
+            CompanyCtrl.ePage.Masters.AddTab = AddTab;
+            CompanyCtrl.ePage.Masters.RemoveTab = RemoveTab;
+            CompanyCtrl.ePage.Masters.CreateNewCompany = CreateNewCompany;
+
+            /* ErrorWarningConfig */
+            CompanyCtrl.ePage.Masters.Config = companyConfig;
+            CompanyCtrl.ePage.Masters.ErrorWarningConfig = errorWarningService;
+
             companyConfig.ValidationFindall();
         }
 
+        //#region SelectedGridRow
         function SelectedGridRow($item) {
             if ($item.action === "link" || $item.action === "dblClick") {
                 CompanyCtrl.ePage.Masters.AddTab($item.data, false);
+            } else if ($item.action === "new") {
+                CreateNewCompany();
             }
         }
+        //#endregion
 
-        function AddTab(currentCompany, isNew) {
-            CompanyCtrl.ePage.Masters.currentCompany = undefined;
-            var _isExist = CompanyCtrl.ePage.Masters.TabList.some(function(value) {
-                if (!isNew) {
-                    return value.label === currentCompany.entity.Code;
-                } else {
-                    if (value.label === "New")
-                        return true;
-                    else
-                        return false;
-                }
+        //#region  AddTab, RemoveTab
+        function AddTab(currentTab, isNew) {
+            var _isExist = CompanyCtrl.ePage.Masters.TabList.some(function (value) {
+                return value.pk == currentTab.entity.PK;
             });
+
             if (!_isExist) {
                 CompanyCtrl.ePage.Masters.IsTabClick = true;
-                var _currentCompany = undefined;
+                var _currentTab = undefined;
                 if (!isNew) {
-                    _currentCompany = isNew.entity;
+                    _currentTab = currentTab.entity;
                 } else {
-                    _currentCompany = currentCompany;
+                    _currentTab = currentTab;
                 }
-                companyConfig.AddCompany(currentCompany, isNew).then(function(response) {
+
+                companyConfig.GetTabDetails(_currentTab, isNew).then(function (response) {
+                    var _entity = {};
                     CompanyCtrl.ePage.Masters.TabList = response;
-                    $timeout(function() {
-                        CompanyCtrl.ePage.Masters.activeTabIndex = CompanyCtrl.ePage.Masters.TabList.length;                        
+                    if (CompanyCtrl.ePage.Masters.TabList.length > 0) {
+                        CompanyCtrl.ePage.Masters.TabList.map(function (value, key) {
+                            if (value.code == currentTab.entity.PK) {
+                                _entity = value[value.code].ePage.Entities.Header.Data;
+                            }
+                        });
+                    }
+
+                    $timeout(function () {
+                        CompanyCtrl.ePage.Masters.ActiveTabIndex = CompanyCtrl.ePage.Masters.TabList.length;
                         CompanyCtrl.ePage.Masters.IsTabClick = false;
+                        var _code = currentTab.entity.PK.split("-").join("");
+                        GetValidationList(_code, _entity);
                     });
                 });
             } else {
-                toastr.info('Company already opened ');
+                toastr.warning('Record already opened...!');
             }
         }
 
-        function RemoveTab(event, index, currentCompany) {
+        function RemoveTab(event, index, currentTab) {
             event.preventDefault();
             event.stopPropagation();
-            var currentCompany = currentCompany[currentCompany.label].ePage.Entities;
+            var _currentTab = currentTab[currentTab.code].ePage.Entities;
             CompanyCtrl.ePage.Masters.TabList.splice(index, 1);
-        }
 
+            apiService.get("eAxisAPI", companyConfig.Entities.API.Company.API.CompanyActivityClose.Url + _currentTab.Header.Data.PK).then(function (response) {
+                if (response.data.Response === "Successfully Cleared") {
+                } else {
+                    console.log("Tab close Error : " + response);
+                }
+            });
+        }
+        //#endregion
+
+        //#region CreateNewCompany
         function CreateNewCompany() {
+            CompanyCtrl.ePage.Masters.currentCompany = undefined;
+
             var _isExist = CompanyCtrl.ePage.Masters.TabList.some(function (value) {
                 if (value.label === "New")
                     return true;
@@ -87,14 +116,12 @@
             });
 
             if (!_isExist) {
-                CompanyCtrl.ePage.Entities.Header.Message = false;
                 CompanyCtrl.ePage.Masters.isNewClicked = true;
-                helperService.getFullObjectUsingGetById(CompanyCtrl.ePage.Entities.Header.API.GetByID.Url, 'null').then(function (response) {
+                helperService.getFullObjectUsingGetById(CompanyCtrl.ePage.Entities.API.Company.API.GetById.Url, 'null').then(function (response) {
                     if (response.data.Response) {
                         var _obj = {
                             entity: response.data.Response,
-                            data: response.data.Response,
-                            /* Validations: response.data.Response.Validations */
+                            data: response.data.Response
                         };
                         CompanyCtrl.ePage.Masters.AddTab(_obj, true);
                         CompanyCtrl.ePage.Masters.isNewClicked = false;
@@ -106,15 +133,26 @@
                 toastr.info("New Record Already Opened...!");
             }
         }
+        //#endregion
 
-        function CurrentActiveTab(currentTab) {
-            if (currentTab.label != undefined) {
-                currentTab = currentTab.label.entity
-            } else {
-                currentTab = currentTab;
-            }
-            CompanyCtrl.ePage.Masters.currentCompany = currentTab;
+        //#region Validation
+        function GetValidationList(currentTab, entity) {
+            var _obj = {
+                ModuleName: ["Finance"],
+                Code: [currentTab],
+                API: "Group",
+                //API: "Validation",
+                FilterInput: {
+                    ModuleCode: "Finance",
+                    SubModuleCode: "JBA",
+                },
+                GroupCode: "COMPANY_MASTER",
+                RelatedBasicDetails: [{}],
+                EntityObject: entity
+            };
+            errorWarningService.GetErrorCodeList(_obj);
         }
+        //#endregion
 
         Init();
     }

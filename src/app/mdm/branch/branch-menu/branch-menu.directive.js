@@ -15,9 +15,6 @@
             controllerAs: "BranchMenuCtrl",
             scope: {
                 currentBranch: "=",
-                dataentryObject: '=',
-                isHideMenu: "=",
-                hideAsnLine: "="
             },
             bindToController: true
         };

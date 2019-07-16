@@ -4,6 +4,7 @@
     angular
         .module("Application")
         .directive("companyDetails", CompanyDetails);
+
     CompanyDetails.$inject = [];
 
     function CompanyDetails() {

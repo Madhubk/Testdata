@@ -3,6 +3,7 @@
     angular
         .module("Application")
         .directive("companyMenu", CompanyMenu);
+        
     CompanyMenu.$inject = [];
 
     function CompanyMenu() {
