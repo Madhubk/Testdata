@@ -82,7 +82,7 @@
                             "LstUIAccPeriodManagement": {
                                 "TableHeight": {
                                     "isEnabled": true,
-                                    "height": 345
+                                    "height": 330
                                 },
                                 "HeaderProperties": [{
                                     "columnname": "S.No",
@@ -220,7 +220,7 @@
                         [_code]: {
                             ePage: _exports
                         },
-                        label: currentFinancialperiod.AccountNum,
+                        label: currentFinancialperiod.Period,
                         code: _code,
                         pk: currentFinancialperiod.PK,
                         isNew: isNew
@@ -254,8 +254,8 @@
                 _input = _Data.Header.Data;
 
             //GLaccount Validations 
-            OnChangeValues(_input.Code, 'E1205', false, undefined, $item.code);
-            OnChangeValues(_input.Desc, 'E1206', false, undefined, $item.code);
+            // OnChangeValues(_input.Code, 'E1205', false, undefined, $item.code);
+            // OnChangeValues(_input.Desc, 'E1206', false, undefined, $item.code);
         }
 
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {

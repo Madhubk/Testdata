@@ -54,7 +54,7 @@
         }
         //#endregion
 
-        //#region  AddTab, RemoveTab, NewFinancialperiod
+        //#region  AddTab, RemoveTab
         function AddTab(currentTab, isNew) {
             var _isExist = FinancePeriodCtrl.ePage.Masters.TabList.some(function (value) {
                 return value.pk == currentTab.entity.PK;
@@ -105,7 +105,9 @@
                 }
             });
         }
+        //#endregion
 
+        //#region NewFinancialperiod
         function CreateNewFinancialPeriod() {
             FinancePeriodCtrl.ePage.Masters.currentCreditor = undefined;
 
@@ -147,7 +149,7 @@
                     ModuleCode: "Finance",
                     SubModuleCode: "JBA",
                 },
-                GroupCode: "FINANCE_DEBTOR",
+                GroupCode: "",
                 RelatedBasicDetails: [{}],
                 EntityObject: entity
             };

@@ -4,7 +4,7 @@
     angular.module("Application")
         .directive("financialperiodGeneral", FinancialPeriodGeneral);
 
-        FinancialPeriodGeneral.$inject = [];
+    FinancialPeriodGeneral.$inject = [];
 
     function FinancialPeriodGeneral() {
         var exports = {

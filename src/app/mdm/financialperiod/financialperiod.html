@@ -8,38 +8,31 @@
         </uib-tab-heading>
         <div class="no-padding tab-list-view-wrapper">
             <!-- Dynamic Grid Page-->
-            <dynamic-list mode="1" dataentry-name="FinancePeriodCtrl.ePage.Masters.DataentryName"
-                dataentry-object="FinancePeriodCtrl.ePage.Masters.DataEntryObject"
-                selected-grid-row="FinancePeriodCtrl.ePage.Masters.SelectedGridRow($item)"
-                default-filter="FinancePeriodCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
+            <dynamic-list mode="1" dataentry-name="FinancePeriodCtrl.ePage.Masters.DataentryName" dataentry-object="FinancePeriodCtrl.ePage.Masters.DataEntryObject"
+                selected-grid-row="FinancePeriodCtrl.ePage.Masters.SelectedGridRow($item)" default-filter="FinancePeriodCtrl.ePage.Masters.DefaultFilter"></dynamic-list>
             <div class="tab-loading" data-ng-show="FinancePeriodCtrl.ePage.Masters.IsTabClick"></div>
         </div>
     </uib-tab>
-    <uib-tab id='top' active="FinancePeriodCtrl.ePage.Masters.ActiveTabIndex == $index"
-        data-ng-repeat="tab in FinancePeriodCtrl.ePage.Masters.TabList">
+    <uib-tab id='top' active="FinancePeriodCtrl.ePage.Masters.ActiveTabIndex == $index" data-ng-repeat="tab in FinancePeriodCtrl.ePage.Masters.TabList">
         <uib-tab-heading title="{{tab.label}}">
             <span data-ng-bind="tab.label"></span>
-            <i class="glyphicon glyphicon-remove"
-                data-ng-click="FinancePeriodCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
-            <span class="error-warning-container-common"
-                data-ng-if="tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length > 0">
-                <span class="custom-warning-container"
-                    data-ng-if="(tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
-                    <button class="btn-warning"
-                        data-ng-click="FinancePeriodCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+            <i class="glyphicon glyphicon-remove" data-ng-click="FinancePeriodCtrl.ePage.Masters.RemoveTab($event, $index, tab)"></i>
+            <span class="error-warning-container-common" data-ng-if="tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList.length > 0">
+                <span class="custom-warning-container" data-ng-if="(tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'W') > 0 && (tab[tab.label].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') == 0">
+                    <button class="btn-warning" data-ng-click="FinancePeriodCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
                         <i class="fa fa-warning"></i>
                     </button>
-                    <span class="custom-warning-count">{{tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
-                        'MessageType': 'W'}}</span>
+                    <span class="custom-warning-count">
+                        {{tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:'MessageType': 'W'}}
+                    </span>
                 </span>
-                <span class="custom-error-container"
-                    data-ng-if="(tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
-                    <button class="btn-error"
-                        data-ng-click="FinancePeriodCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
+                <span class="custom-error-container" data-ng-if="(tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount: 'MessageType': 'E') > 0">
+                    <button class="btn-error" data-ng-click="FinancePeriodCtrl.ePage.Masters.Config.ShowErrorWarningModal(tab)">
                         <i class="fa fa-warning"></i>
                     </button>
-                    <span class="custom-error-count">{{tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:
-                        'MessageType': 'E'}}</span>
+                    <span class="custom-error-count">
+                        {{tab[tab.code].ePage.Entities.Header.Meta.ErrorWarning.GlobalErrorWarningList | listCount:'MessageType': 'E'}}
+                    </span>
                 </span>
             </span>
         </uib-tab-heading>
@@ -49,6 +42,5 @@
             <div class="horizontal-space"></div>
         </div>
     </uib-tab>
-    <button class="btn btn-default" data-ng-click="FinancePeriodCtrl.ePage.Masters.CreateNewFinancialPeriod()"
-        data-ng-disabled="FinancePeriodCtrl.ePage.Masters.isNewClicked">+</button>
+    <button class="btn btn-default" data-ng-click="FinancePeriodCtrl.ePage.Masters.CreateNewFinancialPeriod()" data-ng-disabled="FinancePeriodCtrl.ePage.Masters.isNewClicked">+</button>
 </uib-tabset>
