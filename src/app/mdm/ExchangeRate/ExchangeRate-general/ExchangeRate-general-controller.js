@@ -4,15 +4,15 @@
     angular.module("Application")
         .controller("ExchangeRateGeneralController", ExchangeRateGeneralController);
 
-    ExchangeRateGeneralController.$inject = ["$uibModal", "$scope", "$filter", "$timeout", "helperService", "APP_CONSTANT", "apiService", "authService", "appConfig", "exchangerateConfig"];
+    ExchangeRateGeneralController.$inject = ["$timeout", "helperService", "APP_CONSTANT", "apiService", "authService", "appConfig", "exchangerateConfig"];
 
-    function ExchangeRateGeneralController($uibModal, $scope, $filter, $timeout, helperService, APP_CONSTANT, apiService, authService, appConfig, exchangerateConfig) {
+    function ExchangeRateGeneralController($timeout, helperService, APP_CONSTANT, apiService, authService, appConfig, exchangerateConfig) {
 
         var ExchangeRateGeneralCtrl = this;
 
         function Init() {
-
             var currentExchangeRate = ExchangeRateGeneralCtrl.currentExchangeRate[ExchangeRateGeneralCtrl.currentExchangeRate.code].ePage.Entities;
+
             ExchangeRateGeneralCtrl.ePage = {
                 "Title": "",
                 "Prefix": "Eaxis_ExchangeRate",
@@ -41,7 +41,7 @@
             ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValues = OnChangeValues;
             ExchangeRateGeneralCtrl.ePage.Masters.OnChangeValidation = OnChangeValidation;
 
-            //#region  DropDown 
+            //#region  DropDownList 
             ExchangeRateGeneralCtrl.ePage.Masters.DropDownMasterList = {
                 "ExRateType": {
                     "ListSource": []
@@ -50,16 +50,19 @@
                     "ListSource": []
                 }
             };
+
             GetMastersDropDownList();
             InitStartDate();
         }
         //#endregion 
 
+        //#region InitStartDate
         function InitStartDate() {
             if (ExchangeRateGeneralCtrl.currentExchangeRate.isNew) {
                 ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.StartDate = "";
             }
         }
+        //#endregion
 
         //#region  DropDownList
         function GetMastersDropDownList() {
@@ -94,9 +97,11 @@
                 ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.ConvFromBtoA = 1 / ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.Rate;
             }
         }
+        //#endregion
 
+        //#region OnChangeDate
         function OnChangeDate($item, $type) {
-            if ($type = 'StartDate') {
+            if ($type == 'StartDate') {
                 var stDate = new Date(ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.StartDate).toISOString();
                 var iDate = ExchangeRateGeneralCtrl.ePage.Masters.UIExchangerateList.UIMstExchangeRate.StartDate;
                 var arr = iDate.split("-");
@@ -108,7 +113,9 @@
             }
             else if ($type == 'ExpiryDate') { }
         }
+        //#endregion
 
+        //#region SelectedLookupData
         function SelectedLookupData($index, $item, type) {
             if (type == 'FromCurrency') {
                 OnChangeValidation($item.Code, 'E1324');
@@ -134,6 +141,7 @@
                 }
             }
         }
+        //#endregion
 
         //#region DatePicker
         function OpenDatePicker($event, opened) {

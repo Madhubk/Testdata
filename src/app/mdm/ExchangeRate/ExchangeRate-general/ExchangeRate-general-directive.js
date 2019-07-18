@@ -4,7 +4,7 @@
     angular.module("Application")
         .directive("exchangeRateGeneral", exchangeRateGeneral);
 
-        exchangeRateGeneral.$inject = [];
+    exchangeRateGeneral.$inject = [];
 
     function exchangeRateGeneral() {
         var exports = {

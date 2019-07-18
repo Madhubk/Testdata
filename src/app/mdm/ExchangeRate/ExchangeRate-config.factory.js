@@ -4,9 +4,9 @@
     angular.module("Application")
         .factory("exchangerateConfig", ExchangerateConfig);
 
-    ExchangerateConfig.$inject = ["$q", "apiService", "appConfig", "helperService", "toastr", "errorWarningService"];
+    ExchangerateConfig.$inject = ["$q", "apiService", "appConfig", "helperService", "toastr"];
 
-    function ExchangerateConfig($q, apiService, appConfig, helperService, toastr,errorWarningService) {
+    function ExchangerateConfig($q, apiService, appConfig, helperService, toastr) {
         var exports = {
             "Entities": {
                 "Header": {
@@ -266,15 +266,16 @@
 
         function GeneralValidation($item) {
             var _Data = $item[$item.code].ePage.Entities,
-                _input = _Data.Header.Data.UIMstExchangeRate;
+                _input = _Data.Header.Data;
+                
             /* UICurrencyMaster Validations  */
-            OnChangeValues(_input.FromCurrency, 'E1324', false, undefined, $item.code);
-            OnChangeValues(_input.RX_NKExCurrency, 'E1329', false, undefined, $item.code);
-            OnChangeValues(_input.ExRateType, 'E1325', false, undefined, $item.code);
-            OnChangeValues(_input.RateSubType, 'E1326', false, undefined, $item.code);
-            OnChangeValues(_input.Rate, 'E1327', false, undefined, $item.code);
-            OnChangeValues(_input.ExpiryDate, 'E1328', false, undefined, $item.code);
-            OnChangeValues(_input.StartDate, 'E1319', false, undefined, $item.code);
+            OnChangeValues(_input.UIMstExchangeRate.FromCurrency, 'E1324', false, undefined, $item.code);
+            OnChangeValues(_input.UIMstExchangeRate.RX_NKExCurrency, 'E1329', false, undefined, $item.code);
+            OnChangeValues(_input.UIMstExchangeRate.ExRateType, 'E1325', false, undefined, $item.code);
+            OnChangeValues(_input.UIMstExchangeRate.RateSubType, 'E1326', false, undefined, $item.code);
+            OnChangeValues(_input.UIMstExchangeRate.Rate, 'E1327', false, undefined, $item.code);
+            OnChangeValues(_input.UIMstExchangeRate.ExpiryDate, 'E1328', false, undefined, $item.code);
+            OnChangeValues(_input.UIMstExchangeRate.StartDate, 'E1319', false, undefined, $item.code);
         }
 
         function OnChangeValues(fieldvalue, code, IsArray, RowIndex, label) {

@@ -21,11 +21,8 @@
 
             ExchangeRateCtrl.ePage.Masters.DataentryName = "ExchangerateMaster";
             ExchangeRateCtrl.ePage.Masters.Title = "Exchangerate Master";
-            ExchangeRateCtrl.ePage.Masters.DefaultFilter = {
-                "IsValid": "true"
-            };
-
-            // Function
+            
+            /* Function */
             ExchangeRateCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
             ExchangeRateCtrl.ePage.Masters.AddTab = AddTab;
             ExchangeRateCtrl.ePage.Masters.RemoveTab = RemoveTab;
@@ -44,6 +41,7 @@
             exchangerateConfig.ValidationFindall();
         }
 
+        //#region SelectedGridRow
         function SelectedGridRow($item) {
             if ($item.action === "link" || $item.action === "dblClick") {
                 ExchangeRateCtrl.ePage.Masters.AddTab($item.data, false);
@@ -51,7 +49,9 @@
                 CreateNewExchangeRate();
             }
         }
+        //#endregion
 
+        //#region AddTab, RemoveTab
         function AddTab(ExchangeRateNew, isNew) {
             var _isExist = ExchangeRateCtrl.ePage.Masters.TabList.some(function (value) {
                 return value.pk == ExchangeRateNew.entity.PK;
@@ -101,7 +101,9 @@
                 }
             });
         }
+        //#endregion
 
+        //#region CreateNewExchangeRate
         function CreateNewExchangeRate() {
             ExchangeRateCtrl.ePage.Masters.ExchangeRateNew = undefined;
 
@@ -130,6 +132,7 @@
                 toastr.info("New Record Already Opened...!");
             }
         }
+        //#endregion
 
         //#region Validation
         function GetValidationList(currentTab, entity) {
@@ -148,6 +151,7 @@
             };
             errorWarningService.GetErrorCodeList(_obj);
         }
+        //#endregion
 
         Init();
     }

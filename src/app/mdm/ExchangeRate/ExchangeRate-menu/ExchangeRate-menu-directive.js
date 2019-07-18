@@ -4,12 +4,12 @@
         .module("Application")
         .directive("exchangeRateMenu", exchangeRateMenu);
 
-        exchangeRateMenu.$inject = [];
+    exchangeRateMenu.$inject = [];
 
-    function exchangeRateMenu() {  
-        
+    function exchangeRateMenu() {
+
         var exports = {
-            restrict: "EA",            
+            restrict: "EA",
             templateUrl: "app/mdm/exchangeRate/exchangeRate-menu/exchangeRate-menu.html",
             link: Link,
             controller: "ExchangeRateMenuController",
