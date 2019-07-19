@@ -28,6 +28,7 @@
 
             /* Tab */
             TaxCtrl.ePage.Masters.TabList = [];
+            taxConfig.TabList = [];
             TaxCtrl.ePage.Masters.ActiveTabIndex = 0;
             TaxCtrl.ePage.Masters.IsTabClick = false;
             TaxCtrl.ePage.Masters.isNewClicked = false;

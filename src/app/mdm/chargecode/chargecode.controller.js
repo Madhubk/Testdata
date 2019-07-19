@@ -28,6 +28,7 @@
 
             /* Tab */
             ChargecodeCtrl.ePage.Masters.TabList = [];
+            chargecodeConfig.TabList = [];
             ChargecodeCtrl.ePage.Masters.ActiveTabIndex = 0;
             ChargecodeCtrl.ePage.Masters.IsTabClick = false;
             ChargecodeCtrl.ePage.Masters.isNewClicked = false;

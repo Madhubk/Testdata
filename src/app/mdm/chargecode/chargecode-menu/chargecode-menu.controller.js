@@ -43,6 +43,10 @@
                 _input = _Data.Header.Data,
                 _errorcount = _Data.Header.Meta.ErrorWarning.GlobalErrorWarningList;
 
+            if (_input.UIAccChargeCode.MarginPercentage == 0) {
+                _input.UIAccChargeCode.MarginPercentage = angular.copy(_input.UIAccChargeCode.MarginPercentage.toString());
+            }
+
             /* Validation Call */
             ChargecodeMenuCtrl.ePage.Masters.Config.GeneralValidation($item);
             if (ChargecodeMenuCtrl.ePage.Entities.Header.Validations) {

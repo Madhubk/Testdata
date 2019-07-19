@@ -25,7 +25,7 @@
                 "IsValid": "true"
             };
 
-           /*  Function */
+            /*  Function */
             CurrencyCtrl.ePage.Masters.SelectedGridRow = SelectedGridRow;
             CurrencyCtrl.ePage.Masters.AddTab = AddTab;
             CurrencyCtrl.ePage.Masters.RemoveTab = RemoveTab;
@@ -118,13 +118,13 @@
                     if (response.data.Response) {
                         var _obj = {
                             entity: response.data.Response,
-                            data: response.data.Response,
+                            data: response.data.Response
                             // Validations: response.data.Response.Validations
                         };
                         CurrencyCtrl.ePage.Masters.AddTab(_obj, true);
                         CurrencyCtrl.ePage.Masters.isNewClicked = false;
                     } else {
-                        console.log("Empty New Inward response");
+                        console.log("Empty New currency response");
                     }
                 });
             } else {

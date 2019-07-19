@@ -24,6 +24,7 @@
 
             /* Tab */
             BranchCtrl.ePage.Masters.TabList = [];
+            branchConfig.TabList = [];
             BranchCtrl.ePage.Masters.ActiveTabIndex = 0;
             BranchCtrl.ePage.Masters.IsTabClick = false;
             BranchCtrl.ePage.Masters.isNewClicked = false;

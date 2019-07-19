@@ -28,6 +28,7 @@
 
             /* Tab */
             FinancePeriodCtrl.ePage.Masters.TabList = [];
+            financeperiodConfig.TabList = [];
             FinancePeriodCtrl.ePage.Masters.ActiveTabIndex = 0;
             FinancePeriodCtrl.ePage.Masters.IsTabClick = false;
             FinancePeriodCtrl.ePage.Masters.isNewClicked = false;

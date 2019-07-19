@@ -24,6 +24,7 @@
 
             /* Tab */
             CompanyCtrl.ePage.Masters.TabList = [];
+            companyConfig.TabList = [];
             CompanyCtrl.ePage.Masters.ActiveTabIndex = 0;
             CompanyCtrl.ePage.Masters.IsTabClick = false;
             CompanyCtrl.ePage.Masters.isNewClicked = false;

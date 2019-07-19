@@ -28,6 +28,7 @@
 
             /* Tab */
             DepartmentCtrl.ePage.Masters.TabList = [];
+            departmentConfig.TabList = [];
             DepartmentCtrl.ePage.Masters.ActiveTabIndex = 0;
             DepartmentCtrl.ePage.Masters.IsTabClick = false;
             DepartmentCtrl.ePage.Masters.isNewClicked = false;

@@ -28,6 +28,7 @@
 
             /* Tab */
             GLaccountCtrl.ePage.Masters.TabList = [];
+            glaccountConfig.TabList = [];
             GLaccountCtrl.ePage.Masters.ActiveTabIndex = 0;
             GLaccountCtrl.ePage.Masters.IsTabClick = false;
             GLaccountCtrl.ePage.Masters.isNewClicked = false;

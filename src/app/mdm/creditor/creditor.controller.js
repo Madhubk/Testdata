@@ -28,6 +28,7 @@
 
             /* Tab */
             CreditorCtrl.ePage.Masters.TabList = [];
+            creditorConfig.TabList = [];
             CreditorCtrl.ePage.Masters.ActiveTabIndex = 0;
             CreditorCtrl.ePage.Masters.IsTabClick = false;
             CreditorCtrl.ePage.Masters.isNewClicked = false;
