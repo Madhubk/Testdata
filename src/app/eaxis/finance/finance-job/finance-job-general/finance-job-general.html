@@ -518,10 +518,10 @@
                                 data-ng-style="{'width': FinanceJobGeneralCtrl.ePage.Entities.Header.TableProperties.UIJobCharge.cdescription.width + 'px' }">
                                 <div data-ng-if="$index!=FinanceJobGeneralCtrl.ePage.Masters.selectedRow" class="overflow-text">
                                     {{x.Desc || FinanceJobGeneralCtrl.ePage.Masters.emptyText}}
-                                </div>
+                                </div> 
                                 <div data-ng-if="$index==FinanceJobGeneralCtrl.ePage.Masters.selectedRow">
                                     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xl-10 p-0 height-22">
-                                        <input type="text" class="form-control input-sm" placeholder="Description" data-ng-model="x.Desc" data-ng-disabled="true" />
+                                        <input type="text" class="form-control input-sm" placeholder="Description" data-ng-model="x.Desc"/>
                                     </div>
                                 </div>
                             </td>

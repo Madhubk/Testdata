@@ -26,6 +26,7 @@
 
             /* Tab */
             FinanceJobCtrl.ePage.Masters.TabList = [];
+            financeConfig.TabList = [];
             FinanceJobCtrl.ePage.Masters.ActiveTabIndex = 0;
             FinanceJobCtrl.ePage.Masters.IsTabClick = false;
             FinanceJobCtrl.ePage.Masters.isNewClicked = false;

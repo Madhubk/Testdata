@@ -101,6 +101,7 @@
         };
         return exports;
 
+        //#region GetTabDetails
         function GetTabDetails(currentJobHeader, isNew) {
             /*  Set configuration object to individual Finance invoice */
             var deferred = $q.defer();
@@ -458,6 +459,7 @@
             }
             return deferred.promise;
         }
+        //#endregion
 
         //#region  Validation
         function ValidationFindall() {
@@ -777,8 +779,7 @@
         }
         //#endregion Validation
 
-        //#region  DotArea
-
+        //#region InitBinding
         function InitBinding($item) {
             var _Data = $item[$item.code].ePage.Entities,
                 _input = _Data.Header.Data;
@@ -812,17 +813,22 @@
                 _input.UIJobHeader.Department = _input.UIJobHeader.DeptCode + ' - ' + _input.UIJobHeader.DeptName;
             }
         }
+        //#endregion
 
+        //#region DotArea
         function DotArea($index, Amt, duplicatetype, originaltype, $item) {
             if (Amt) {
                 var _Data = $item[$item.code].ePage.Entities,
                     _input = _Data.Header.Data;
 
                 _input.UIJobCharge[$index][originaltype] = Amt;
+
                 if (Amt.includes('.')) {
                     var Amt = Amt.split('.');
                     if (Amt[1] && Amt[1].length > 2) {
                         Amt[1] = Amt[1].substring(0, 2);
+                        _input.UIJobCharge[$index][duplicatetype] = Amt[0] + '.' + Amt[1];
+                    }else{
                         _input.UIJobCharge[$index][duplicatetype] = Amt[0] + '.' + Amt[1];
                     }
                 } else {
