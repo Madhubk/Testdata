@@ -24,7 +24,7 @@ pipeline {
           stage('Build') {
             steps {
                 // bat "\"C:\\Program Files (x86)\\MSBuild\\14.0\\Bin\\MSBuild.exe\" MVCPipeline.sln"
-               bat "npm run build --prod
+                   bat "npm run build --prod"
                  //bat 'npm run build --prod --baseHref=/webapp/ -optimization=true'
             }
         }
