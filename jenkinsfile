@@ -13,7 +13,7 @@ pipeline {
             steps {
                 
                 bat "npm install"
-                bat "npm bower install"
+                
                 bat "grunt build"
 
             }
