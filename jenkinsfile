@@ -30,7 +30,7 @@ pipeline {
    
         stage('Deploy') {
             steps {
-                bat 'xcopy "C:\\Users\\Madhu\\.jenkins\\workspace\\AngularJSpipeline\\dist\\angular-tour-of-heroes" "E:\\Deploy_A3" /s/y/j'
+                bat 'xcopy "C:\\Users\\Madhu\\.jenkins\\workspace\\AngularJSpipeline\\src" "E:\\Deploy_A4" /s/y/j'
 
             }
         }
